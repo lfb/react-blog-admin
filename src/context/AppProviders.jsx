@@ -8,7 +8,7 @@ import { QueryClient, QueryClientProvider } from "react-query";
 export const AppProviders = ({ children }) => {
     return (
         <Provider store={store}>
-            <QueryClientProvider client={new QueryClient()}>
+            <QueryClientProvider client={ new QueryClient() }>
                 <AuthProvider>
                     {children}
                 </AuthProvider>

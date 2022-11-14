@@ -4,8 +4,9 @@ import "./login.scss"
 import {useAdminLogin} from "../../hooks/use-admin";
 import { useUserInfo} from "../../context/AuthContext";
 import {setToken} from "../../utils/token";
+import {useAppDispatch} from "../../store";
 
-export const Login = () => {
+export const Login = (props) => {
     const {user} = useUserInfo()
 
     const { mutateAsync: postAdminLogin, isLoading } =  useAdminLogin()
@@ -13,6 +14,7 @@ export const Login = () => {
        const user = await postAdminLogin(userInfo)
        if(user && user.token) {
            setToken(user.token)
+           window.location.reload()
        }
     };
 
@@ -22,7 +24,7 @@ export const Login = () => {
                 <img src="https://cdn.boblog.com/logo.png" alt="boblog"/>
             </div>
             <div>
-                {user.nickname}
+                {user && user.nickname}
             </div>
             <Form className={'form-wrap'} onFinish={handleSubmit}>
                 <Form.Item

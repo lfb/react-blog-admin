@@ -1,20 +1,17 @@
-import logo from './logo.svg';
 import './App.css';
-import { Button } from 'antd';
 
-import {Login} from "./components/Admin/login";
-import {Sidebar} from "./components/Sidebar";
-import {Main} from "./components/Main";
-import {useEffect} from "react";
-import {useUserInfo} from "./hooks/use-admin";
-
+import { AuthenticatedApp } from "./components/AuthenticatedApp";
+import { UnauthenticatedApp } from "./components/UnauthenticatedApp";
+import {useUserInfo} from "./context/AuthContext";
 
 function App() {
+    const {user} = useUserInfo()
+
     return (
-    <div className="App">
-      <Login />
-    </div>
-  );
+        <div className="App">
+            {user ? <AuthenticatedApp/> : <UnauthenticatedApp/> }
+        </div>
+    );
 }
 
 export default App;

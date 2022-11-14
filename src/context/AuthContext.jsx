@@ -14,9 +14,8 @@ export const useUserInfo = () => {
 };
 
 export const AuthProvider = ({ children }) => {
-  const {data: user, isIdle, isLoading, isError} = useAuth()
-  const dispatch = useAppDispatch();
-  dispatch(setAdminInfo(user))
+  // 进入页面前，检验一下是否有权限
+  const { isIdle, isLoading, isError} = useAuth()
 
   if (isIdle || isLoading) {
     return (
@@ -30,5 +29,6 @@ export const AuthProvider = ({ children }) => {
     return <div>error...</div>
   }
 
+  // 通过
   return <div>{children}</div>;
 };
