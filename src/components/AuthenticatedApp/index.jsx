@@ -1,10 +1,10 @@
 import {Button} from 'antd'
 import {logout} from "../../store/auth";
 import {setToken} from "../../utils/token";
+import {useAdminInfo} from "../../hooks/use-admin";
 
-export const AuthenticatedApp = (props) => {
-    console.log('')
-    console.log('props', props)
+export const AuthenticatedApp = () => {
+    const {admin} = useAdminInfo()
 
     // 退出
     const AdminLogout = () => {
@@ -15,7 +15,7 @@ export const AuthenticatedApp = (props) => {
 
     return (
         <div>
-            AuthenticatedApp
+            欢迎你， { admin && admin.nickname }
 
             <div>
                 <Button onClick={() => AdminLogout() }>

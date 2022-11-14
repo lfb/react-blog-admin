@@ -14,7 +14,7 @@ const requestPost = (url, {data = {}}) => {
     }).then(res => res).catch(err => err)
 }
 
-const postRequest = async (url, {method = 'GET', ...params} = {}) => {
+const postRequest = async ({url = '', method = 'GET', ...params} = {}) => {
     switch (method.toUpperCase()) {
         case 'GET':
             return requestGet(url, params);

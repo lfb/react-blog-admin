@@ -2,14 +2,14 @@ import './App.css';
 
 import { AuthenticatedApp } from "./components/AuthenticatedApp";
 import { UnauthenticatedApp } from "./components/UnauthenticatedApp";
-import {useUserInfo} from "./context/AuthContext";
+import {useAdminInfo} from "./hooks/use-admin";
 
 function App() {
-    const {user} = useUserInfo()
+    const {admin} = useAdminInfo()
 
     return (
         <div className="App">
-            {user ? <AuthenticatedApp/> : <UnauthenticatedApp/> }
+            {admin && admin.id ? <AuthenticatedApp/> : <UnauthenticatedApp/> }
         </div>
     );
 }

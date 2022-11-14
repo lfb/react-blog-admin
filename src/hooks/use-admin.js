@@ -1,32 +1,24 @@
-import {useAxios} from "./use-axios";
-
+import {useSelector} from "react-redux";
 import {  useMutation, useQuery } from "react-query";
+
 import {useAppDispatch} from "../store";
-import {setAdminInfo} from "../store/auth";
-/**
- * 用户登录
- */
-export const useAdminLogin = () => {
-    const request = useAxios();
+import {selectAdmin, setAdminInfo} from "../store/auth";
+import {adminLogin, getAdminAuth} from "../request/api/admin";
 
-    return useMutation((data) => {
-          return request("/v1/admin/login", {
-              method: "POST",
-              data
-          })
-        }
-    );
-};
+// 用户登录
+export const useAdminLogin = () => useMutation(adminLogin)
+
+// 用户信息
+export const useAdminInfo = () => ({admin: useSelector(selectAdmin)})
 
 /**
- * 用户信息
+ * 用户校验
  */
 export const useAuth = () => {
-    const request = useAxios();
     const dispatch = useAppDispatch();
+    const res = useQuery([], getAdminAuth)
 
-    const res = useQuery([],() => request("/v1/admin/auth"))
-
+    // 储存用户信息
     if(res?.data?.id) {
         dispatch(setAdminInfo(res.data))
     }

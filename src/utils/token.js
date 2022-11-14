@@ -9,7 +9,6 @@ export const setToken = (token) => {
     window.localStorage.setItem(localStorageKey, token || "");
 };
 
-
 export function encodeToken() {
     const token = getToken()
     const base64 = Base64.encode(token + ':')
