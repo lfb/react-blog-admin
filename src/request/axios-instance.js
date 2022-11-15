@@ -1,41 +1,42 @@
 import axios from 'axios'
-import {getToken} from "../utils/token";
-import {encodeToken} from "../utils/token";
-import {message} from "antd";
-import qs from 'qs'
+import { message } from 'antd'
+import { getToken, encodeToken } from '../utils/token'
 
 const request = axios.create({
-    timeout: 3000,
-    baseURL: process.env.REACT_APP_API_URL,
+  timeout: 3000,
+  baseURL: process.env.REACT_APP_API_URL
 })
 
-request.interceptors.request.use(config => {
+request.interceptors.request.use(
+  config => {
     const token = getToken()
     if (token) {
-        config.headers.Authorization = encodeToken()
+      config.headers.Authorization = encodeToken()
     }
 
     return config
-}, error => {
-    return Promise.reject(error)
-})
+  },
+  error => Promise.reject(error)
+)
 
-request.interceptors.response.use( response => {
+request.interceptors.response.use(
+  response => {
     const HTTP_STATUS = 200
-    const {data = null, code = 0, status = HTTP_STATUS} = response.data || {}
+    const { data = null, code = 0, status = HTTP_STATUS } = response.data || {}
 
-    if(status === HTTP_STATUS && code === HTTP_STATUS) {
-        return Promise.resolve(data)
+    if (status === HTTP_STATUS && code === HTTP_STATUS) {
+      return Promise.resolve(data)
     }
 
     message.error(response.data.msg)
 
     return Promise.reject(response.data)
-
-}, error => {
+  },
+  error => {
     message.error(error.response.data.msg)
 
     return Promise.reject(error.response.data)
-})
+  }
+)
 
 export default request

@@ -1,13 +1,13 @@
-import { configureStore } from "@reduxjs/toolkit";
-import { useDispatch } from "react-redux";
-import {authSlice} from "./auth";
+import { configureStore } from '@reduxjs/toolkit'
+import { useDispatch } from 'react-redux'
+import { authSlice } from './auth'
 
 export const rootReducer = {
-    auth: authSlice.reducer
+  auth: authSlice.reducer
 }
 
 export const store = configureStore({
-    reducer: rootReducer
+  reducer: rootReducer
 })
 
-export const useAppDispatch = useDispatch;
+export const useAppDispatch = useDispatch

@@ -1,12 +1,12 @@
-import React, {useEffect} from "react";
-import {Spin} from 'antd'
+import React, { useEffect } from 'react'
+import { Spin } from 'antd'
 
 import './AuthContext.scss'
-import {useDispatch} from "react-redux";
-import {administer} from "../store/auth";
-import {useAsync} from "../hooks/use-async";
+import { useDispatch } from 'react-redux'
+import { administer } from '../store/auth'
+import { useAsync } from '../hooks/use-async'
 
-export const AuthProvider = ({ children }) => {
+export default function AuthProvider({ children }) {
   // 进入页面前，检验一下是否有权限
   const { isIdle, isLoading, run } = useAsync()
   const dispatch = useDispatch()
@@ -17,13 +17,12 @@ export const AuthProvider = ({ children }) => {
 
   if (isIdle || isLoading) {
     return (
-        <div className={"AuthContext-wrap"}>
-          <Spin  />
-        </div>
+      <div className="AuthContext-wrap">
+        <Spin />
+      </div>
     )
   }
 
   // 通过
-  return <div>{children}</div>;
-};
-
+  return <div>{children}</div>
+}

@@ -1,9 +1,10 @@
-import {Login} from "../../components/Admin/login";
+import React from 'react'
+import Login from '../../components/Admin/login'
 
-export const UnauthenticatedApp = () => {
-    return (
-        <div>
-            <Login />
-        </div>
-    )
+export default function UnauthenticatedApp() {
+  return (
+    <div>
+      <Login />
+    </div>
+  )
 }

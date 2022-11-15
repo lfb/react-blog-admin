@@ -24,7 +24,7 @@
     "css-minimizer-webpack-plugin": "^3.2.0",
     "dotenv": "^10.0.0",
     "dotenv-expand": "^5.1.0",
-    "eslint": "^8.3.0",
+    "eslint": "7.32.0",
     "eslint-config-react-app": "^7.0.1",
     "eslint-webpack-plugin": "^3.1.1",
     "file-loader": "^6.2.0",
@@ -69,7 +69,15 @@
   "scripts": {
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
-    "test": "node scripts/test.js"
+    "test": "node scripts/test.js",
+    "lint": "eslint --ext .js,.jsx src",
+    "lint:fix": "eslint --fix --ext .js,.jsx src",
+    "lint-staged": "lint-staged",
+    "lint-staged:js": "eslint --ext .js src",
+    "format": "prettier --write src"
+  },
+  "lint-staged": {
+    "**/*.js": "npm run lint-staged:js"
   },
   "eslintConfig": {
     "extends": [
@@ -144,5 +152,15 @@
     "presets": [
       "react-app"
     ]
+  },
+  "devDependencies": {
+    "babel-eslint": "^10.1.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-jsx-a11y": "^6.6.1",
+    "eslint-plugin-react": "^7.31.10",
+    "husky": "^8.0.2",
+    "lint-staged": "^13.0.3",
+    "prettier": "^2.7.1"
   }
 }
