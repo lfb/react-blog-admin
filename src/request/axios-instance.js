@@ -28,12 +28,12 @@ request.interceptors.response.use(
       return Promise.resolve(data)
     }
 
-    message.error(response.data.msg)
+    message.error(response.data?.msg || 'error')
 
     return Promise.reject(response.data)
   },
   error => {
-    message.error(error.response.data.msg)
+    message.error(error.response?.data?.msg || 'error')
 
     return Promise.reject(error.response.data)
   }

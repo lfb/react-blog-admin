@@ -14,6 +14,7 @@ export default function Login() {
 
   return (
     <div className="login-wrap">
+      <div className="login-wrap-bg" />
       <div className="logo">
         <img src="https://cdn.boblog.com/logo.png" alt="boblog" />
       </div>

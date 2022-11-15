@@ -1,9 +1,23 @@
 .login-wrap {
-  width: 100%;
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+
+  &-bg {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-image: url('../../assets/images/common/left.svg'), url('../../assets/images/common/right.svg');
+    background-position: left bottom, right bottom;
+    background-size: calc(((100vw - 40rem) / 2) - 3.2rem), calc(((100vw - 40rem) / 2) - 3.2rem), cover;
+  }
 }
 .logo {
-  width: 128px;
-  margin: 20vh auto 32px;
+  width: 148px;
+  margin: 20vh auto 10vh;
 
   img {
     width: 100%;
@@ -11,6 +25,6 @@
 }
 
 .form-wrap {
-  width: 400px;
+  width: 368px;
   margin: 32px auto;
 }
