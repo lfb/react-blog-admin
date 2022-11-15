@@ -1,18 +1,16 @@
 import React, { useState } from "react";
-import { Button, Form, Input, message } from "antd";
+import { Button, Form, Input } from "antd";
 import "./login.scss"
 import {useAdminInfo} from "../../hooks/use-admin";
 
 export const Login = () => {
     const [isLoading,setIsLoading]= useState(false)
-    // const {isLoading, mutateAsync: adminLogin } = useAdminLogin()
-    const {admin, login } = useAdminInfo()
+    const { login } = useAdminInfo()
 
-    const handleSubmit = async (adminInfo) => {
+    const handleSubmit = adminInfo => {
         setIsLoading(true)
-        await login(adminInfo)
-        setIsLoading(false)
-    };
+        login(adminInfo).finally(() => setIsLoading(false))
+    }
 
     return (
         <div className={'login-wrap'}>

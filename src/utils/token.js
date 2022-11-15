@@ -1,7 +1,7 @@
 
 import { Base64 } from 'js-base64'
 
-const localStorageKey = "__auth_provider_token__";
+const localStorageKey = "__boblog_auth_provider_token__";
 
 export const getToken = () => window.localStorage.getItem(localStorageKey);
 

@@ -1,10 +1,8 @@
 import React, {useEffect} from "react";
-import {message, Spin} from 'antd'
+import {Spin} from 'antd'
 
 import './AuthContext.scss'
 import {useDispatch} from "react-redux";
-import {getToken} from "../utils/token";
-import {getAdminAuth} from "../request/api/admin";
 import {administer} from "../store/auth";
 import {useAsync} from "../hooks/use-async";
 
@@ -14,9 +12,8 @@ export const AuthProvider = ({ children }) => {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    // checkAuth()
     run(dispatch(administer()))
-  }, [])
+  }, [dispatch, run])
 
   if (isIdle || isLoading) {
     return (

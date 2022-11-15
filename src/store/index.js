@@ -10,5 +10,4 @@ export const store = configureStore({
     reducer: rootReducer
 })
 
-
 export const useAppDispatch = useDispatch;

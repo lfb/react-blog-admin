@@ -12,15 +12,15 @@ export const authSlice = createSlice({
     reducers: {
         setAdmin(state, action) {
             state.admin = action.payload;
-        },
+        }
     },
 });
 
 const { setAdmin } = authSlice.actions;
 
-export const selectAdmin= (state) => state.auth.admin
+export const selectAdmin= state => state.auth.admin
 
-export const login = (data) => (dispatch) =>  adminLogin(data).then(() => dispatch(administer()))
-export const administer = () => (dispatch) => getAdminister().then((admin) => dispatch(setAdmin(admin)))
+export const login = data => dispatch =>  adminLogin(data).then(() => dispatch(administer()))
+export const administer = () => dispatch => getAdminister().then((admin) => dispatch(setAdmin(admin)))
 export const logout = () => dispatch => removeToken().then(() => dispatch(setAdmin(null)))
 
