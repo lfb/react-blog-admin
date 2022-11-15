@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Button, Form, Input } from 'antd'
+import { Button, Form, Input, message } from 'antd'
 import './login.scss'
 import { useAdminInfo } from '../../hooks/use-admin'
 
@@ -9,13 +9,14 @@ export default function Login() {
 
   const handleSubmit = adminInfo => {
     setIsLoading(true)
+    message.success('登录成功')
     login(adminInfo).finally(() => setIsLoading(false))
   }
 
   return (
     <div className="login-wrap">
       <div className="login-wrap-bg" />
-      <div className="logo">
+      <div className="login-logo">
         <img src="https://cdn.boblog.com/logo.png" alt="boblog" />
       </div>
       <Form className="form-wrap" onFinish={handleSubmit}>
