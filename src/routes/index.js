@@ -1,5 +1,10 @@
 export const navList = [
   {
+    key: 'home',
+    title: '首页',
+    children: []
+  },
+  {
     key: 'articles',
     title: '文章管理',
     children: [

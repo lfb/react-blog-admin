@@ -1,6 +1,7 @@
 import React from 'react'
 import { Navigate, Route, Routes } from 'react-router'
 import { Layout } from 'antd'
+import HomeContainer from '../../components/Home/index'
 import ArticlesList from '../../components/Articles/list'
 import CategoryList from '../../components/Category/list'
 import CommentsList from '../../components/Comments/list'
@@ -19,7 +20,8 @@ export default function MainContainer() {
       }}
     >
       <Routes>
-        <Route path="/" element={<Navigate to="/articles/list" replace />} />
+        <Route path="/" element={<Navigate to="/home" replace />} />
+        <Route path="/home" element={<HomeContainer />} />
         <Route path="/articles/list" element={<ArticlesList />} />
         <Route path="/category/list" element={<CategoryList />} />
         <Route path="/comments/list" element={<CommentsList />} />

@@ -1,5 +1,4 @@
 import React from 'react'
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { DownOutlined, MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons'
 import { Dropdown, Layout, message, Modal } from 'antd'
 import { useAdminInfo } from '../../hooks/use-admin'
@@ -33,12 +32,7 @@ export default function MainHeader(props) {
 
   return (
     <div>
-      <Header
-        className="site-layout-background header-container"
-        style={{
-          padding: '0 40px'
-        }}
-      >
+      <Header className="site-layout-background header-container" style={{ padding: '0 40px' }}>
         <div className="header-left">
           {React.createElement(props.collapsed ? MenuUnfoldOutlined : MenuFoldOutlined, {
             className: 'trigger',

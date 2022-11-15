@@ -1,15 +1,13 @@
+import { HomeOutlined, FileDoneOutlined, BranchesOutlined, CommentOutlined, AlertOutlined } from '@ant-design/icons'
 import React, { useState } from 'react'
 import { Layout, Menu } from 'antd'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { navList } from '../../routes'
 import './Sidebar.scss'
 
 const { Sider } = Layout
 export default function Sidebar(props) {
-  // 选择部分
-  const initCurrent = window.location.pathname.substring(1).split('/').join('-')
-  const [current, setCurrent] = useState(initCurrent)
-  const onNav = ({ key }) => setCurrent(key)
+  const navigate = useNavigate()
 
   // 展开的导航
   const initKeys = window.location.pathname.split('/')[1] || 'articles'
@@ -24,16 +22,39 @@ export default function Sidebar(props) {
       setOpenKeys(latestOpenKey ? [latestOpenKey] : [])
     }
   }
+  // 选择部分
+  const initCurrent = window.location.pathname.substring(1).split('/').join('-')
+  const [current, setCurrent] = useState(initCurrent)
+  const onNav = ({ key }) => {
+    setCurrent(key)
 
-  // 导航map
+    // 对首页特殊处理
+    if (key === 'home') {
+      navigate('/home')
+      setOpenKeys([])
+    }
+  }
+
+  // 导航 map
+  const navIconsMap = {
+    home: <HomeOutlined />,
+    articles: <FileDoneOutlined />,
+    category: <BranchesOutlined />,
+    comments: <CommentOutlined />,
+    reply: <AlertOutlined />
+  }
   const navListMap = navList.map(nav => ({
     key: nav.key,
     label: nav.title,
-    children: nav.children.map(ele => ({
-      key: ele.key,
-      path: ele.path,
-      label: <Link to={ele.path}>{ele.sub_title}</Link>
-    }))
+    icon: navIconsMap[nav.key],
+    children:
+      nav && Array.isArray(nav.children) && nav.children.length
+        ? nav.children.map(ele => ({
+            key: ele.key,
+            path: ele.path,
+            label: <Link to={ele.path}>{ele.sub_title}</Link>
+          }))
+        : null
   }))
 
   return (
