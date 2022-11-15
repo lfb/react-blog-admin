@@ -1,0 +1,25 @@
+.header-container {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+
+  .header-left {
+    width: 32px;
+  }
+  .header-right {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+
+    &-inner {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    &:hover {
+      color: #2d8cf0;
+    }
+  }
+}
