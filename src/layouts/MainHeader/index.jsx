@@ -1,7 +1,7 @@
 import React from 'react'
 import { DownOutlined, MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons'
 import { Dropdown, Layout, message, Modal } from 'antd'
-import { useAdminInfo } from '../../hooks/use-admin'
+import { useAdminInfo } from '../../hooks/useAdmin'
 
 import './MainHeader.scss'
 

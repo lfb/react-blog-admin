@@ -2,7 +2,7 @@ import './App.css'
 import React from 'react'
 import AuthenticatedApp from './layouts/AuthenticatedApp'
 import UnauthenticatedApp from './layouts/UnauthenticatedApp'
-import { useAdminInfo } from './hooks/use-admin'
+import { useAdminInfo } from './hooks/useAdmin'
 
 function App() {
   const { admin } = useAdminInfo()

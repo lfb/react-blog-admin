@@ -4,7 +4,7 @@ import { Spin } from 'antd'
 import './AuthContext.scss'
 import { useDispatch } from 'react-redux'
 import { administer } from '../store/auth'
-import { useAsync } from '../hooks/use-async'
+import { useAsync } from '../hooks/useAsync'
 
 export default function AuthProvider({ children }) {
   // 进入页面前，检验一下是否有权限
