@@ -1,27 +1,24 @@
-import {useSelector} from "react-redux";
-import {  useMutation, useQuery } from "react-query";
-
-import {useAppDispatch} from "../store";
-import {selectAdmin, setAdminInfo} from "../store/auth";
-import {adminLogin, getAdminAuth} from "../request/api/admin";
-
-// 用户登录
-export const useAdminLogin = () => useMutation(adminLogin)
+import {useQueryClient} from "react-query";
+import {useSelector, useDispatch} from "react-redux";
+import {useCallback} from "react";
+import * as auth from "../store/auth";
 
 // 用户信息
-export const useAdminInfo = () => ({admin: useSelector(selectAdmin)})
+export const useAdminInfo = () => {
+    const dispatch = useDispatch();
+    const admin =  useSelector(auth.selectAdmin)
 
-/**
- * 用户校验
- */
-export const useAuth = () => {
-    const dispatch = useAppDispatch();
-    const res = useQuery([], getAdminAuth)
+    const login = useCallback( data => dispatch(auth.login(data)),[dispatch]);
 
-    // 储存用户信息
-    if(res?.data?.id) {
-        dispatch(setAdminInfo(res.data))
+    const queryClient = useQueryClient();
+    const logout = useCallback(() => {
+        dispatch(auth.logout());
+        queryClient.clear();
+    }, [dispatch]);
+
+    return {
+        admin,
+        login,
+        logout
     }
-
-    return res
 }

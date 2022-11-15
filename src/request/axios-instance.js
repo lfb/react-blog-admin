@@ -1,6 +1,8 @@
 import axios from 'axios'
 import {getToken} from "../utils/token";
 import {encodeToken} from "../utils/token";
+import {message} from "antd";
+import qs from 'qs'
 
 const request = axios.create({
     timeout: 3000,
@@ -14,17 +16,26 @@ request.interceptors.request.use(config => {
     }
 
     return config
-}, error => Promise.reject(error))
+}, error => {
+    return Promise.reject(error)
+})
 
 request.interceptors.response.use( response => {
-    const {data = null, code = 0} = response.data || {}
+    const HTTP_STATUS = 200
+    const {data = null, code = 0, status = HTTP_STATUS} = response.data || {}
 
-    if(code === 200) {
+    if(status === HTTP_STATUS && code === HTTP_STATUS) {
         return Promise.resolve(data)
     }
 
-    return Promise.reject(data)
+    message.error(response.data.msg)
 
-}, error => Promise.reject(error))
+    return Promise.reject(response.data)
+
+}, error => {
+    message.error(error.response.data.msg)
+
+    return Promise.reject(error.response.data)
+})
 
 export default request

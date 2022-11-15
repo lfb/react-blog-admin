@@ -1,7 +1,8 @@
 import { postRequest } from "../index";
+import {useMutation} from "react-query";
 
 // 管理员登录
-export const adminLogin = data => postRequest({
+export const postAdminLogin = (data) => postRequest({
     url: "/v1/admin/login",
     method: "POST",
     data

@@ -7,7 +7,11 @@ export const getToken = () => window.localStorage.getItem(localStorageKey);
 
 export const setToken = (token) => {
     window.localStorage.setItem(localStorageKey, token || "");
+
+    return token
 };
+
+export const removeToken = async () => window.localStorage.removeItem(localStorageKey);
 
 export function encodeToken() {
     const token = getToken()

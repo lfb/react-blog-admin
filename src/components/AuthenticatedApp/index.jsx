@@ -4,13 +4,11 @@ import {setToken} from "../../utils/token";
 import {useAdminInfo} from "../../hooks/use-admin";
 
 export const AuthenticatedApp = () => {
-    const {admin} = useAdminInfo()
+    const {admin, logout} = useAdminInfo()
 
     // 退出
     const AdminLogout = () => {
         logout()
-        setToken()
-        window.location.reload()
     }
 
     return (

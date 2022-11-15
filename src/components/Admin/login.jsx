@@ -1,29 +1,23 @@
 import React, { useState } from "react";
-import { Button, Form, Input } from "antd";
+import { Button, Form, Input, message } from "antd";
 import "./login.scss"
-import {useAdminLogin} from "../../hooks/use-admin";
 import {useAdminInfo} from "../../hooks/use-admin";
-import {setToken} from "../../utils/token";
 
 export const Login = () => {
-    const {admin} = useAdminInfo()
+    const [isLoading,setIsLoading]= useState(false)
+    // const {isLoading, mutateAsync: adminLogin } = useAdminLogin()
+    const {admin, login } = useAdminInfo()
 
-    const { mutateAsync: postAdminLogin, isLoading } =  useAdminLogin()
     const handleSubmit = async (adminInfo) => {
-       const admin = await postAdminLogin(adminInfo)
-       if(admin && admin.token) {
-           setToken(admin.token)
-           window.location.reload()
-       }
+        setIsLoading(true)
+        await login(adminInfo)
+        setIsLoading(false)
     };
 
     return (
         <div className={'login-wrap'}>
             <div className={'logo'}>
                 <img src="https://cdn.boblog.com/logo.png" alt="boblog"/>
-            </div>
-            <div>
-                {admin && admin.nickname}
             </div>
             <Form className={'form-wrap'} onFinish={handleSubmit}>
                 <Form.Item

@@ -2,8 +2,8 @@ import request from './axios-instance'
 
 const requestGet  = (url, params = {}) => {
     return request.get(url, params)
-        .then(res => res)
-        .catch(err => err)
+        .then(res => Promise.resolve(res))
+        .catch(err => Promise.reject(err))
 }
 
 const requestPost = (url, {data = {}}) => {
@@ -11,7 +11,9 @@ const requestPost = (url, {data = {}}) => {
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
         }
-    }).then(res => res).catch(err => err)
+    })
+        .then(res => Promise.resolve(res))
+        .catch(err => Promise.reject(err))
 }
 
 const postRequest = async ({url = '', method = 'GET', ...params} = {}) => {
