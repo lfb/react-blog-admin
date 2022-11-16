@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 
 import { useDocumentTitle } from '../../hooks/useDocumentTitle'
 import { useArticlesList } from '../../request/api/articles'
-import FromSearch from './FormSearch/FormSearch'
+import FromSearch from './ArticleFormSearch/ArticleFormSearch'
 import ArticleTable from './ArticleTable/ArticleTable'
 
 export default function ArticlesList() {
