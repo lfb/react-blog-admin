@@ -38,15 +38,13 @@ export const cleanObject = object => {
         check(value)
       }
 
-      if (value == null || value === '') {
+      if (value == null || value === '' || Number.isNaN(value)) {
         delete o[key]
       }
     })
   }
 
   check(result)
-
-  console.log('result', result)
 
   return result
 }
