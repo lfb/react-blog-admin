@@ -54,7 +54,13 @@ export default function ArticleFormSearch(props) {
         {formItemMap.input &&
           formItemMap.input.map(input => (
             <Form.Item key={input.fieldName} name={input.fieldName} style={{ width: '16rem' }}>
-              <Input type="text" allowClear data-value_key={input.value_key} placeholder={input.placeholder || '内容'} onChange={onInputChange} />
+              <Input
+                type="text"
+                allowClear
+                data-value_key={input.value_key}
+                placeholder={input.placeholder || '内容'}
+                onChange={onInputChange}
+              />
             </Form.Item>
           ))}
 

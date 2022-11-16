@@ -38,7 +38,13 @@ export default function ArticlesList() {
           </Select>
         </Form.Item>
       </FormSearch>
-      <ArticleTable isLoading={isLoading} article={article} pagination={pagination} params={params} setParams={setParams} />
+      <ArticleTable
+        isLoading={isLoading}
+        article={article}
+        pagination={pagination}
+        params={params}
+        setParams={setParams}
+      />
     </div>
   )
 }

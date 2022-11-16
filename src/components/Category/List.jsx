@@ -14,7 +14,13 @@ export default function CategoryList() {
   return (
     <div>
       <FormSearch formItemMap={formItemMap} params={params} setParams={setParams} />
-      <CategoryTable params={params} isLoading={isLoading} categoryList={categoryList} pagination={pagination} setParams={setParams} />
+      <CategoryTable
+        params={params}
+        isLoading={isLoading}
+        categoryList={categoryList}
+        pagination={pagination}
+        setParams={setParams}
+      />
     </div>
   )
 }

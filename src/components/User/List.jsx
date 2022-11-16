@@ -11,7 +11,13 @@ export default function UserList() {
   return (
     <div>
       <FormSearch formItemMap={formItemMap} params={params} setParams={setParams} />
-      <UserTable userList={userList} isLoading={isLoading} pagination={pagination} params={params} setParams={setParams} />
+      <UserTable
+        userList={userList}
+        isLoading={isLoading}
+        pagination={pagination}
+        params={params}
+        setParams={setParams}
+      />
     </div>
   )
 }
