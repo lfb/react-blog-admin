@@ -9,8 +9,9 @@ export default function Login() {
 
   const handleSubmit = adminInfo => {
     setIsLoading(true)
-    message.success('登录成功')
-    login(adminInfo).finally(() => setIsLoading(false))
+    login(adminInfo)
+      .then(() => message.success('登录成功'))
+      .finally(() => setIsLoading(false))
   }
 
   return (
