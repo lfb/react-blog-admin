@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Button, Form, Input, message } from 'antd'
-import './login.scss'
+import './Login.scss'
 import { useAdminInfo } from '../../hooks/useAdmin'
 
 export default function Login() {

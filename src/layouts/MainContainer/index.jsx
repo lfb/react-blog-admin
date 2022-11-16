@@ -1,11 +1,11 @@
 import React from 'react'
 import { Navigate, Route, Routes } from 'react-router'
 import { Layout } from 'antd'
-import HomeContainer from '../../components/Home/index'
-import ArticlesList from '../../components/Articles/list'
-import CategoryList from '../../components/Category/list'
-import CommentsList from '../../components/Comments/list'
-import ReplyList from '../../components/Reply/list'
+import HomeContainer from '../../components/Home/Container'
+import ArticlesList from '../../components/Articles/List'
+import CategoryList from '../../components/Category/List'
+import CommentsList from '../../components/Comments/List'
+import ReplyList from '../../components/Reply/List'
 
 const { Content } = Layout
 
