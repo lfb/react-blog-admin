@@ -28,7 +28,7 @@ export const categoryFormItemMap = {
   }
 }
 
-// 分类
+// 用户
 export const userFormItemMap = {
   status: true,
   input: {
@@ -37,8 +37,5 @@ export const userFormItemMap = {
   },
   button_reset: {
     name: '重置条件'
-  },
-  button_add: {
-    name: '新增分类'
   }
 }
