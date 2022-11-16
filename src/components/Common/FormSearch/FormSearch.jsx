@@ -40,25 +40,23 @@ export default function ArticleFormSearch(props) {
         {formItemMap.status && (
           <Form.Item name="field-article-status" style={{ width: '8rem' }}>
             <Select placeholder="状态" onChange={onStatusChange} allowClear>
-              <Select.Option value="0">隐藏</Select.Option>
-              <Select.Option value="1">正常</Select.Option>
+              {formItemMap.status.selectOption.map(opt => (
+                <Select.Option key={opt.id} value={opt.value}>
+                  {opt.name}
+                </Select.Option>
+              ))}
             </Select>
           </Form.Item>
         )}
 
         {props.children}
 
-        {formItemMap.input && (
-          <Form.Item name="field-article-title" style={{ width: '16rem' }}>
-            <Input
-              type="text"
-              allowClear
-              data-value_key={formItemMap.input.value_key}
-              placeholder={formItemMap.input?.placeholder || '内容'}
-              onChange={onInputChange}
-            />
-          </Form.Item>
-        )}
+        {formItemMap.input &&
+          formItemMap.input.map(input => (
+            <Form.Item key={input.fieldName} name={input.fieldName} style={{ width: '16rem' }}>
+              <Input type="text" allowClear data-value_key={input.value_key} placeholder={input.placeholder || '内容'} onChange={onInputChange} />
+            </Form.Item>
+          ))}
 
         {formItemMap.button_reset && (
           <Form.Item>

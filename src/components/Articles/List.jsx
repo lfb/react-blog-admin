@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 
 import { Form, Select } from 'antd'
-import { articleFormItemMap } from '../../utils/form-search'
+import { articleFormItemMap as formItemMap } from '../../utils/form-search'
 
 import { useDocumentTitle } from '../../hooks/useDocumentTitle'
 import { useArticlesList } from '../../request/api/articles'
@@ -27,7 +27,7 @@ export default function ArticlesList() {
 
   return (
     <div>
-      <FormSearch formItemMap={articleFormItemMap} params={params} setParams={setParams}>
+      <FormSearch formItemMap={formItemMap} params={params} setParams={setParams}>
         <Form.Item name="field-article-category" style={{ width: '8rem' }}>
           <Select placeholder="分类" onChange={onCategoryChange} allowClear>
             {categoryList.map(category => (
