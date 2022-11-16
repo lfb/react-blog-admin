@@ -1,4 +1,5 @@
 import request from './axios-instance'
+import { cleanObject } from '../utils/tools'
 
 const requestGet = (url, params = {}) =>
   request
@@ -19,9 +20,9 @@ const requestPost = (url, { data = {} }) =>
 const postRequest = async ({ url = '', method = 'GET', ...params } = {}) => {
   switch (method.toUpperCase()) {
     case 'POST':
-      return requestPost(url, params)
+      return requestPost(url, cleanObject(params))
     default:
-      return requestGet(url, params)
+      return requestGet(url, cleanObject(params))
   }
 }
 

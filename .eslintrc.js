@@ -26,6 +26,8 @@ module.exports = {
         'react/destructuring-assignment': [0, 'always'],
         // 解决require报错问题
         'import/no-extraneous-dependencies': ["error", { devDependencies: true }],
-        'react/jsx-wrap-multilines': 'off'
+        'react/jsx-wrap-multilines': 'off',
+        "prefer-object-spread": 'off',
+        "no-unused-vars": 0
     }
 };

@@ -36,6 +36,7 @@
     "jest-resolve": "^27.4.2",
     "jest-watch-typeahead": "^1.0.0",
     "js-base64": "^3.7.2",
+    "lodash": "^4.17.21",
     "mini-css-extract-plugin": "^2.4.5",
     "node-sass": "^8.0.0",
     "postcss": "^8.4.4",
