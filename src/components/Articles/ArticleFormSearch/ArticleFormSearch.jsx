@@ -63,7 +63,7 @@ export default function ArticleFormSearch(props) {
         </Form.Item>
 
         <Form.Item name="field-article-title" style={{ width: '16rem' }}>
-          <Input type="text" placeholder="文章标题" onChange={onKeywordChange} />
+          <Input type="text" placeholder="文章标题" onChange={onKeywordChange} allowClear />
         </Form.Item>
 
         <Form.Item>

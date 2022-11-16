@@ -42,7 +42,7 @@ export default function CategoryFormSearch(props) {
         </Form.Item>
 
         <Form.Item name="field-article-title" style={{ width: '16rem' }}>
-          <Input type="text" placeholder="分类标题" onChange={onNameChange} />
+          <Input type="text" placeholder="分类标题" onChange={onNameChange} allowClear />
         </Form.Item>
 
         <Form.Item>
