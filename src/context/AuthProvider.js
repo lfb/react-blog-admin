@@ -5,7 +5,6 @@ import { getAdminAuth, postAdminLogin } from '../request/api/admin'
 export const getAdminister = async () => {
   let admin = null
   const token = getToken()
-  console.log('token', token)
   if (token) {
     admin = await getAdminAuth()
   }

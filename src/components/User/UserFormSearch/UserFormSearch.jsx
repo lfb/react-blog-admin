@@ -2,9 +2,9 @@ import { Button, Form, Input, Select } from 'antd'
 import React, { useCallback } from 'react'
 import { debounce } from 'lodash'
 
-import './CategoryFormSearch.scss'
+import './UserFormSearch.scss'
 
-export default function CategoryFormSearch(props) {
+export default function UserFormSearch(props) {
   const [form] = Form.useForm()
   // 搜索 - 状态
   const onStatusChange = status => {
@@ -15,11 +15,11 @@ export default function CategoryFormSearch(props) {
   }
 
   // 搜索 - 标题关键字
-  const onNameChange = useCallback(
+  const onUsernameChange = useCallback(
     debounce(e => {
       props.setParams({
         ...props.params,
-        name: e.target.value
+        username: e.target.value
       })
     }, 500),
     []
@@ -42,14 +42,13 @@ export default function CategoryFormSearch(props) {
         </Form.Item>
 
         <Form.Item name="field-article-title" style={{ width: '16rem' }}>
-          <Input type="text" placeholder="分类标题" onChange={onNameChange} />
+          <Input type="text" placeholder="用户名称" onChange={onUsernameChange} allowClear />
         </Form.Item>
 
         <Form.Item>
-          <Button onClick={resetForm}>重置条件</Button>
-        </Form.Item>
-        <Form.Item>
-          <Button type="primary">新增分类</Button>
+          <Button type="primary" onClick={resetForm}>
+            重置条件
+          </Button>
         </Form.Item>
       </Form>
     </div>

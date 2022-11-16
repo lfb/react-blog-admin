@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 
 import { useDocumentTitle } from '../../hooks/useDocumentTitle'
 import { useArticlesList } from '../../request/api/articles'
-import FromSearch from './ArticleFormSearch/ArticleFormSearch'
+import ArticleFormSearch from './ArticleFormSearch/ArticleFormSearch'
 import ArticleTable from './ArticleTable/ArticleTable'
 
 export default function ArticlesList() {
@@ -14,7 +14,7 @@ export default function ArticlesList() {
 
   return (
     <div>
-      <FromSearch params={params} setParams={setParams} />
+      <ArticleFormSearch params={params} setParams={setParams} />
       <ArticleTable isLoading={isLoading} article={article} pagination={pagination} params={params} setParams={setParams} />
     </div>
   )

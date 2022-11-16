@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useDocumentTitle } from '../../hooks/useDocumentTitle'
 import { useCategory } from '../../request/api/category'
-import FormSearch from './CategoryFormSearch/CategoryFormSearch'
+import CategoryFormSearch from './CategoryFormSearch/CategoryFormSearch'
 import CategoryTable from './CategoryTable/CategoryTable'
 
 export default function CategoryList() {
@@ -17,7 +17,7 @@ export default function CategoryList() {
 
   return (
     <div>
-      <FormSearch params={params} setParams={setParams} />
+      <CategoryFormSearch params={params} setParams={setParams} />
       <CategoryTable params={params} isLoading={isLoading} categoryList={categoryList} pagination={pagination} setParams={setParams} />
     </div>
   )

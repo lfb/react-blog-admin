@@ -27,6 +27,17 @@ export const navList = [
     ]
   },
   {
+    key: 'user',
+    title: '用户管理',
+    children: [
+      {
+        key: 'user-list',
+        sub_title: '用户列表',
+        path: '/user/list'
+      }
+    ]
+  },
+  {
     key: 'comments',
     title: '评论管理',
     children: [
