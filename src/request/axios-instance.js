@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { message } from 'antd'
-import { getToken, encodeToken } from '../utils/token'
+import { getToken, encodeToken, removeToken } from '../utils/token'
 
 const request = axios.create({
   timeout: 3000,
@@ -34,6 +34,12 @@ request.interceptors.response.use(
   },
   error => {
     message.error(error.response?.data?.msg || 'error')
+
+    if ([401, 403].includes(error.response.status)) {
+      removeToken().then(() => {
+        window.location.href = '/'
+      })
+    }
 
     return Promise.reject(error.response.data)
   }
