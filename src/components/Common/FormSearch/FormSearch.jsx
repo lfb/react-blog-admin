@@ -2,7 +2,7 @@ import { Button, Form, Input, Select } from 'antd'
 import React, { useCallback } from 'react'
 import { debounce } from 'lodash'
 
-import './FormSearch.jsx.scss'
+import './FormSearch.scss'
 
 export default function ArticleFormSearch(props) {
   const [form] = Form.useForm()

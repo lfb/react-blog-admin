@@ -6,7 +6,7 @@ import { articleFormItemMap as formItemMap } from '../../utils/form-search'
 import { useDocumentTitle } from '../../hooks/useDocumentTitle'
 import { useArticlesList } from '../../request/api/articles'
 import FormSearch from '../Common/FormSearch/FormSearch'
-import ArticleTable from './ArticleTable/ArticleTable'
+import Index from './ArticleTable'
 import { useCategory } from '../../request/api/category'
 
 export default function ArticlesList() {
@@ -38,13 +38,7 @@ export default function ArticlesList() {
           </Select>
         </Form.Item>
       </FormSearch>
-      <ArticleTable
-        isLoading={isLoading}
-        article={article}
-        pagination={pagination}
-        params={params}
-        setParams={setParams}
-      />
+      <Index isLoading={isLoading} article={article} pagination={pagination} params={params} setParams={setParams} />
     </div>
   )
 }

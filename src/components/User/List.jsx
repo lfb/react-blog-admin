@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import UserTable from './UserTable/UserTable'
+import UserTable from './UserTable'
 import { useUserList } from '../../request/api/user'
 import FormSearch from '../Common/FormSearch/FormSearch'
 import { userFormItemMap as formItemMap } from '../../utils/form-search'

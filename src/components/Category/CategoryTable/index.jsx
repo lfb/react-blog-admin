@@ -1,22 +1,20 @@
-import { Button, Space, Table } from 'antd'
 import React from 'react'
+import { Button, Space, Table } from 'antd'
 
-import { articleColumns } from './tables'
+import { categoryColumns } from './Columns'
 
-export default function ArticleTable(props) {
-  const { isLoading, article, pagination, setParams, params } = props
-
+export default function Index(props) {
+  const { params, isLoading, categoryList, pagination, setParams } = props
   // Table 页码切换
-  const onTableChange = ({ current: page }) => {
+  const onTableChange = ({ current }) => {
     setParams({
       ...params,
-      page
+      page: current
     })
   }
 
-  // 编辑
   const onEdit = () => {
-    console.log('onEdit')
+    console.log('onEdit', onEdit)
   }
 
   // 绑定方法，所以抽出来
@@ -35,14 +33,14 @@ export default function ArticleTable(props) {
     )
   }
 
-  const columns = [...articleColumns, columnsActions]
+  const columns = [...categoryColumns, columnsActions]
 
   return (
     <Table
       rowKey="id"
       columns={columns}
       loading={isLoading}
-      dataSource={article}
+      dataSource={categoryList}
       pagination={pagination}
       onChange={onTableChange}
     />
