@@ -64,3 +64,28 @@ export const userFormItemMap = {
     name: '重置条件'
   }
 }
+
+// 评论
+export const commentsFormItemMap = {
+  status: defaultStatus,
+  input: [
+    {
+      fieldName: 'field-comments-id',
+      value_key: 'id',
+      placeholder: '评论ID'
+    },
+    {
+      fieldName: 'field-article-id',
+      value_key: 'article_id',
+      placeholder: '文章ID'
+    },
+    {
+      fieldName: 'field-content',
+      value_key: 'content',
+      placeholder: '评论内容'
+    }
+  ],
+  button_reset: {
+    name: '重置条件'
+  }
+}
