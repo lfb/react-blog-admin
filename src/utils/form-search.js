@@ -89,3 +89,28 @@ export const commentsFormItemMap = {
     name: '重置条件'
   }
 }
+
+// 回复
+export const replyFormItemMap = {
+  status: defaultStatus,
+  input: [
+    {
+      fieldName: 'field-comments-id',
+      value_key: 'id',
+      placeholder: '回复ID'
+    },
+    {
+      fieldName: 'field-article-id',
+      value_key: 'article_id',
+      placeholder: '文章ID'
+    },
+    {
+      fieldName: 'field-content',
+      value_key: 'content',
+      placeholder: '回复内容'
+    }
+  ],
+  button_reset: {
+    name: '重置条件'
+  }
+}

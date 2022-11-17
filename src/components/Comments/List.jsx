@@ -7,16 +7,19 @@ import CommentsTable from './CommentsTable'
 
 export default function CommentsList() {
   useDocumentTitle('评论列表')
-  const [params, setParams] = useState({
+
+  const initParams = {
     page: 1,
     is_user: 1,
     is_article: 1
-  })
+  }
+
+  const [params, setParams] = useState(initParams)
   const { data: { data: commentsList = [], meta: pagination = {} } = {}, isLoading } = useCommentsList(params)
 
   return (
     <div>
-      <FormSearch formItemMap={commentsFormItemMap} setParams={setParams} />
+      <FormSearch formItemMap={commentsFormItemMap} setParams={setParams} initParams={initParams} />
       <CommentsTable
         isLoading={isLoading}
         commentsList={commentsList}

@@ -7,7 +7,7 @@ import './FormSearch.scss'
 export default function ArticleFormSearch(props) {
   const [form] = Form.useForm()
 
-  const { formItemMap = {} } = props
+  const { formItemMap = {}, initParams = {} } = props
 
   // 搜索 - 状态
   const onStatusChange = status => {
@@ -30,7 +30,7 @@ export default function ArticleFormSearch(props) {
 
   // 重置
   const resetForm = () => {
-    props.setParams({})
+    props.setParams(initParams)
     form.resetFields()
   }
 
