@@ -68,9 +68,7 @@ export default function Sidebar(props) {
   return (
     <div>
       <Sider trigger={null} collapsible collapsed={props.collapsed}>
-        <div className="container-logo">
-          <img src="https://cdn.boblog.com/logo.png" alt="boblog" />
-        </div>
+        <Link className="container-logo" to='/' />
         <Menu
           theme="dark"
           mode="inline"
