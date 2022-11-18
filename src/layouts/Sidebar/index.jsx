@@ -6,41 +6,41 @@ import {
   CommentOutlined,
   AlertOutlined
 } from '@ant-design/icons'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Layout, Menu } from 'antd'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { navList } from '../../routes'
 import './Sidebar.scss'
 
 const { Sider } = Layout
 export default function Sidebar(props) {
-  const navigate = useNavigate()
+  const location = useLocation()
 
-  // 展开的导航
-  const initKeys = window.location.pathname.split('/')[1] || 'articles'
+  // 展开的导航目录
+  const initKeys = location.pathname.split('/')[1] || 'articles'
   const [openKeys, setOpenKeys] = useState([initKeys])
-  const onOpenNavChange = keys => {
-    const latestOpenKey = keys.find(key => openKeys.indexOf(key) === -1)
-    const index = navList.findIndex(nav => openKeys.includes(nav.key))
 
-    if (index === -1) {
+  // 获取当前导航路径
+  const getCurrentPathname = () => location.pathname.substring(1).split('/').join('-')
+  // 展开的导航路由
+  const [selectCurrentRoute, setSelectCurrentRoute] = useState(getCurrentPathname())
+
+  // 切换导航目录
+  const onOpenNavChange = keys => {
+    const latestOpenKey = keys.find(key => !openKeys.includes(key))
+    const navIndex = navList.findIndex(({ key }) => openKeys.includes(key))
+
+    if (navIndex === -1) {
       setOpenKeys(keys)
     } else {
       setOpenKeys(latestOpenKey ? [latestOpenKey] : [])
     }
   }
-  // 选择部分
-  const initCurrent = window.location.pathname.substring(1).split('/').join('-')
-  const [current, setCurrent] = useState(initCurrent)
-  const onNav = ({ key }) => {
-    setCurrent(key)
 
-    // 对首页特殊处理
-    if (key === 'home') {
-      navigate('/home')
-      setOpenKeys([])
-    }
-  }
+  useEffect(() => {
+    // 监听当前路由，自动高亮导航
+    setSelectCurrentRoute(getCurrentPathname())
+  }, [location])
 
   // 导航 map
   const navIconsMap = {
@@ -53,7 +53,7 @@ export default function Sidebar(props) {
   }
   const navListMap = navList.map(nav => ({
     key: nav.key,
-    label: nav.title,
+    label: nav.key === 'home' ? <Link to="/home">{nav.title}</Link> : nav.title,
     icon: navIconsMap[nav.key],
     children:
       nav && Array.isArray(nav.children) && nav.children.length
@@ -68,20 +68,15 @@ export default function Sidebar(props) {
   return (
     <div>
       <Sider trigger={null} collapsible collapsed={props.collapsed}>
-        <Link className="container-logo" to='/' />
+        <Link className="container-logo" to="/" />
         <Menu
           theme="dark"
           mode="inline"
-          style={{
-            height: '100%',
-            borderRight: 0
-          }}
-          selectedKeys={[current]}
-          defaultOpenKeys={['articles']}
-          openKeys={openKeys}
-          onOpenChange={onOpenNavChange}
-          onClick={onNav}
           items={navListMap}
+          selectedKeys={[selectCurrentRoute]}
+          openKeys={openKeys}
+          defaultOpenKeys={['articles']}
+          onOpenChange={onOpenNavChange}
         />
       </Sider>
     </div>
