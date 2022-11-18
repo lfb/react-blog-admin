@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Button, message, Modal, Select, Space, Switch, Table } from 'antd'
 
-import { useQueryClient } from "react-query";
+import { useQueryClient } from 'react-query'
 import { replyColumns } from './Columns'
 import { deleteReply, updateReply } from '../../../../request/api/reply'
 

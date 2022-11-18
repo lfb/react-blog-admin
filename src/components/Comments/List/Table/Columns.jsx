@@ -1,6 +1,6 @@
 import React from 'react'
 import { Tag } from 'antd'
-import { commonsStatusText } from '../../../../utils/form-search'
+import { commonsStatusTagColor, commonsStatusText } from '../../../../utils/form-search'
 
 export const commentsColumns = [
   {
@@ -22,15 +22,10 @@ export const commentsColumns = [
     render: email => <div> {parseInt(email, 10) === 0 ? '匿名' : email} </div>
   },
   {
-    title: '文章ID',
-    dataIndex: 'article_id',
-    key: 'article_id'
-  },
-  {
     title: '文章',
     dataIndex: 'article',
     key: 'article',
-    render: article => <div>{article ? article.title : '无'}</div>
+    render: article => <div>{article ? `${article.id} - ${article.title}` : '无'}</div>
   },
   {
     title: '评论内容',
@@ -43,7 +38,7 @@ export const commentsColumns = [
     dataIndex: 'status',
     key: 'status',
     render: status => (
-      <Tag color={status === 1 ? 'green' : 'magenta'} key={status}>
+      <Tag color={commonsStatusTagColor[status]} key={status}>
         {commonsStatusText[status]}
       </Tag>
     )

@@ -136,8 +136,15 @@ export const replyFormItemMap = {
   }
 }
 
+// 评论下的状态文案
 export const commonsStatusText = {
   0: '待审核',
   1: '审核通过',
   2: '审核不通过'
+}
+// 评论下的状态Tag颜色
+export const commonsStatusTagColor = {
+  0: 'purple',
+  1: 'green',
+  2: 'magenta'
 }
