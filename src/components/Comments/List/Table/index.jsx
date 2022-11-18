@@ -21,14 +21,14 @@ export default function Index(props) {
   const [deleteLoading, setDeleteLoading] = useState(false)
 
   const [currentId, setCurrentId] = useState(false)
-  const [switchLoading, setSwitchLoading] = useState(false)
+  const [selectLoading, setSelectLoading] = useState(false)
 
   const resetCommentsList = () => queryClient.invalidateQueries(['commentsList'])
 
   // 切换审核状态
   const onChangeStatus = (status, id) => {
     setCurrentId(id)
-    setSwitchLoading(true)
+    setSelectLoading(true)
 
     updateComments({
       id,
@@ -39,7 +39,7 @@ export default function Index(props) {
         resetCommentsList()
         message.success('更新成功!')
       })
-      .finally(() => setSwitchLoading(false))
+      .finally(() => setSelectLoading(false))
   }
 
   const onDelete = id => {
@@ -74,7 +74,7 @@ export default function Index(props) {
         <Select
           defaultValue={record.status}
           style={{ width: 120 }}
-          loading={currentId === record.id && switchLoading}
+          loading={currentId === record.id && selectLoading}
           onChange={value => onChangeStatus(value, record.id)}
           options={[
             {
