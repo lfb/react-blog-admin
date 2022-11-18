@@ -1,5 +1,5 @@
-import React from 'react'
-import { Button, Space, Table } from 'antd'
+import React, { useState } from "react";
+import { Button, Space, Switch, Table } from "antd";
 
 import { replyColumns } from './Columns'
 
@@ -13,8 +13,10 @@ export default function Index(props) {
     })
   }
 
-  const onEdit = () => {
-    console.log('onEdit', onEdit)
+  const [currentUid, setCurrentUid] = useState(false)
+  const [switchLoading, setSwitchLoading] = useState(false)
+  const onChangeSwitch = (status, user) => {
+    console.log('status', status, user)
   }
 
   // 绑定方法，所以抽出来
@@ -25,10 +27,13 @@ export default function Index(props) {
     fixed: 'right',
     render: (_, record) => (
       <Space size="middle">
-        <Button type="ghost">预览</Button>
-        <Button type="primary" onClick={() => onEdit(record.id)}>
-          编辑
-        </Button>
+        <Switch
+          checked={!!record.status}
+          checkedChildren="审核通过"
+          unCheckedChildren={record.status === 0 ? '待审核' : '审核不通过' }
+          loading={record.id === currentUid && switchLoading}
+          onChange={status => onChangeSwitch(status, record)}
+        />
         <Button type="danger">删除</Button>
       </Space>
     )

@@ -1,7 +1,8 @@
 import React from 'react'
 import { Tag } from 'antd'
+import { commonsStatusText } from '../../../../utils/form-search'
 
-export const replyColumns = [
+export const commentsColumns = [
   {
     title: 'ID',
     dataIndex: 'id',
@@ -9,41 +10,41 @@ export const replyColumns = [
     width: 80
   },
   {
-    title: '回复人',
+    title: '名称',
     dataIndex: 'user_info',
     key: 'user_info',
     render: user => <div> {user ? user.username : '匿名'} </div>
   },
   {
-    title: '回复人邮箱',
+    title: '邮箱',
     dataIndex: 'email',
     key: 'email',
-    render: email => <div> {email || '匿名'} </div>
+    render: email => <div> {parseInt(email, 10) === 0 ? '匿名' : email} </div>
   },
   {
-    title: '回复文章ID',
+    title: '文章ID',
     dataIndex: 'article_id',
     key: 'article_id'
   },
   {
-    title: '回复文章',
+    title: '文章',
     dataIndex: 'article',
     key: 'article',
-    render: article => (article ? article.map(art => <div key={art.id}>{art.title}</div>) : '')
+    render: article => <div>{article ? article.title : '无'}</div>
   },
   {
-    title: '回复内容',
+    title: '评论内容',
     dataIndex: 'content',
     key: 'content',
     render: content => <div>{content}</div>
   },
   {
-    title: '状态',
+    title: '审核状态',
     dataIndex: 'status',
     key: 'status',
     render: status => (
       <Tag color={status === 1 ? 'green' : 'magenta'} key={status}>
-        {status === 1 ? '正常' : '隐藏'}
+        {commonsStatusText[status]}
       </Tag>
     )
   }

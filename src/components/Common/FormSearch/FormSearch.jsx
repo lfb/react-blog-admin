@@ -34,6 +34,8 @@ export default function ArticleFormSearch(props) {
     form.resetFields()
   }
 
+  const onAdd = () => props.onAdd?.()
+
   return (
     <div>
       <Form className="search-form-wrap" layout="inline" name="basic" form={form}>
@@ -72,7 +74,9 @@ export default function ArticleFormSearch(props) {
 
         {formItemMap.button_add && (
           <Form.Item>
-            <Button type="primary">{formItemMap.button_add.name}</Button>
+            <Button type="primary" onClick={onAdd}>
+              {formItemMap.button_add.name}
+            </Button>
           </Form.Item>
         )}
       </Form>

@@ -14,6 +14,27 @@ const defaultStatus = {
   ]
 }
 
+// 默认状态数据
+const commentsDefaultStatus = {
+  selectOption: [
+    {
+      id: 10001,
+      value: 0,
+      name: '待审核'
+    },
+    {
+      id: 10002,
+      value: 1,
+      name: '审核通过'
+    },
+    {
+      id: 10003,
+      value: 2,
+      name: '审核不通过'
+    }
+  ]
+}
+
 // 文章
 export const articleFormItemMap = {
   status: defaultStatus,
@@ -67,7 +88,7 @@ export const userFormItemMap = {
 
 // 评论
 export const commentsFormItemMap = {
-  status: defaultStatus,
+  status: commentsDefaultStatus,
   input: [
     {
       fieldName: 'field-comments-id',
@@ -92,7 +113,7 @@ export const commentsFormItemMap = {
 
 // 回复
 export const replyFormItemMap = {
-  status: defaultStatus,
+  status: commentsDefaultStatus,
   input: [
     {
       fieldName: 'field-comments-id',
@@ -113,4 +134,10 @@ export const replyFormItemMap = {
   button_reset: {
     name: '重置条件'
   }
+}
+
+export const commonsStatusText = {
+  0: '待审核',
+  1: '审核通过',
+  2: '审核不通过'
 }

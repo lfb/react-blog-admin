@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
-import { useDocumentTitle } from '../../hooks/useDocumentTitle'
-import FormSearch from '../Common/FormSearch/FormSearch'
-import { commentsFormItemMap } from '../../utils/form-search'
-import { useCommentsList } from '../../request/api/comments'
-import CommentsTable from './CommentsTable'
+import { useDocumentTitle } from '../../../hooks/useDocumentTitle'
+import FormSearch from '../../Common/FormSearch/FormSearch'
+import { commentsFormItemMap } from '../../../utils/form-search'
+import { useCommentsList } from '../../../request/api/comments'
+import CommentsTable from './Table'
 
 export default function CommentsList() {
   useDocumentTitle('评论列表')

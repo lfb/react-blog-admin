@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
-import { useDocumentTitle } from '../../hooks/useDocumentTitle'
-import FormSearch from '../Common/FormSearch/FormSearch'
-import { replyFormItemMap } from '../../utils/form-search'
-import { useReplyList } from '../../request/api/reply'
-import ReplyTable from './ReplyTable'
+import { useDocumentTitle } from '../../../hooks/useDocumentTitle'
+import FormSearch from '../../Common/FormSearch/FormSearch'
+import { replyFormItemMap } from '../../../utils/form-search'
+import { useReplyList } from '../../../request/api/reply'
+import ReplyTable from './Table'
 
 export default function ReplyList() {
   useDocumentTitle('回复列表')
