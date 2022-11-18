@@ -9,3 +9,11 @@ export const useUserList = params =>
       params
     })
   )
+
+// 用户列表
+export const updateUser = ({ id, ...data }) =>
+  postRequest({
+    url: `/v1/user/update/${id}`,
+    method: 'PUT',
+    data
+  })

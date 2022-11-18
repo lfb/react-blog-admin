@@ -1,13 +1,19 @@
 import request from './axios-instance'
 import { cleanObject } from '../utils/tools'
 
-const requestGet = (url, params = {}) =>
+const requestGET = (url, params = {}) =>
   request
     .get(url, params)
     .then(res => Promise.resolve(res))
     .catch(err => Promise.reject(err))
 
-const requestPost = (url, { data = {} }) =>
+const requestDELETE = (url, params = {}) =>
+  request
+    .delete(url, params)
+    .then(res => Promise.resolve(res))
+    .catch(err => Promise.reject(err))
+
+const requestPOST = (url, { data = {} }) =>
   request
     .post(url, data, {
       headers: {
@@ -17,12 +23,22 @@ const requestPost = (url, { data = {} }) =>
     .then(res => Promise.resolve(res))
     .catch(err => Promise.reject(err))
 
+const requestPUT = (url, { data = {} }) =>
+  request
+    .put(url, data)
+    .then(res => Promise.resolve(res))
+    .catch(err => Promise.reject(err))
+
 const postRequest = async ({ url = '', method = 'GET', ...params } = {}) => {
   switch (method.toUpperCase()) {
     case 'POST':
-      return requestPost(url, cleanObject(params))
+      return requestPOST(url, cleanObject(params))
+    case 'PUT':
+      return requestPUT(url, cleanObject(params))
+    case 'DELETE':
+      return requestDELETE(url, cleanObject(params))
     default:
-      return requestGet(url, cleanObject(params))
+      return requestGET(url, cleanObject(params))
   }
 }
 
