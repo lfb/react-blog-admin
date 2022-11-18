@@ -10,7 +10,7 @@ export const commentsColumns = [
     width: 80
   },
   {
-    title: '名称',
+    title: '昵称',
     dataIndex: 'user_info',
     key: 'user_info',
     render: user => <div> {user ? user.username : '匿名'} </div>
