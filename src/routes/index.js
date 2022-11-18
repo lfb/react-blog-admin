@@ -23,6 +23,11 @@ export const navList = [
         key: 'category-list',
         sub_title: '分类列表',
         path: '/category/list'
+      },
+      {
+        key: 'category-create',
+        sub_title: '分类创建',
+        path: '/category/create'
       }
     ]
   },
