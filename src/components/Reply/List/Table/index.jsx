@@ -1,11 +1,13 @@
 import React, { useState } from 'react'
 import { Button, message, Modal, Select, Space, Switch, Table } from 'antd'
 
+import { useQueryClient } from "react-query";
 import { replyColumns } from './Columns'
-import { deleteComments, updateComments } from '../../../../request/api/comments'
 import { deleteReply, updateReply } from '../../../../request/api/reply'
 
 export default function Index(props) {
+  const queryClient = useQueryClient()
+
   const { params, isLoading, replyList, pagination, setParams } = props
   // Table 页码切换
   const onTableChange = ({ current }) => {
@@ -21,19 +23,20 @@ export default function Index(props) {
   const [currentId, setCurrentId] = useState(false)
   const [selectLoading, setSelectLoading] = useState(false)
 
-  const onChangeStatus = reply => {
-    const cid = reply.id
-    setCurrentId(cid)
+  const resetReplyList = () => queryClient.invalidateQueries(['replyList'])
+
+  // 切换审核状态
+  const onChangeStatus = (status, id) => {
+    setCurrentId(id)
     setSelectLoading(true)
 
-    const newStatus = reply.status ? 1 : 2
     updateReply({
-      id: cid,
-      // 1-审核通过，2-审核不通过
-      status: newStatus
+      id,
+      status
     })
       .then(() => {
         message.success('更新成功!')
+        resetReplyList()
       })
       .finally(() => setSelectLoading(false))
   }
@@ -49,11 +52,7 @@ export default function Index(props) {
         deleteReply({ id })
           .then(res => {
             message.success(res?.msg || '删除成功')
-            // 重新获取
-            setParams({
-              ...params,
-              page: 1
-            })
+            resetReplyList()
           })
           .finally(() => setDeleteLoading(false))
       },
@@ -75,10 +74,11 @@ export default function Index(props) {
           defaultValue={record.status}
           style={{ width: 120 }}
           loading={currentId === record.id && selectLoading}
-          onChange={() => onChangeStatus(record)}
+          onChange={status => onChangeStatus(status, record.id)}
           options={[
             {
               value: 0,
+              disabled: true,
               label: '待审核'
             },
             {

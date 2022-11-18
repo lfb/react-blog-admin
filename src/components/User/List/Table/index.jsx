@@ -16,6 +16,7 @@ export default function Index(props) {
   }
 
   const queryClient = useQueryClient()
+  const resetUserList = () => queryClient.invalidateQueries(['userList'])
 
   const [currentUid, setCurrentUid] = useState(false)
   const [switchLoading, setSwitchLoading] = useState(false)
@@ -24,22 +25,16 @@ export default function Index(props) {
     setSwitchLoading(true)
 
     const uid = user.id
+
     setCurrentUid(uid)
 
     updateUser({
+      id: uid,
       ...user,
       status: Number(status)
     })
       .then(() => {
-        const previousUsers = queryClient.getQueryData(['userList', params])
-        const index = previousUsers.data.findIndex(u => u.id === uid)
-        if (index !== -1) {
-          const curUser = previousUsers.data[index]
-          curUser.status = Number(status)
-          previousUsers.data.splice(index, 1, curUser)
-
-          queryClient.setQueryData(['userList', params], () => previousUsers)
-        }
+        resetUserList()
         message.success('设置成功！')
       })
       .finally(() => setSwitchLoading(false))

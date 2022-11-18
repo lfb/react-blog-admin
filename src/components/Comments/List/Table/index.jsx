@@ -4,8 +4,6 @@ import { Button, message, Space, Select, Table, Modal } from 'antd'
 import { useQueryClient } from 'react-query'
 import { commentsColumns } from './Columns'
 import { deleteComments, updateComments } from '../../../../request/api/comments'
-import { commonsStatusText } from '../../../../utils/form-search'
-import { deleteCategory } from '../../../../request/api/category'
 
 export default function Index(props) {
   const queryClient = useQueryClient()
@@ -24,18 +22,21 @@ export default function Index(props) {
 
   const [currentId, setCurrentId] = useState(false)
   const [switchLoading, setSwitchLoading] = useState(false)
-  const onChangeStatus = comment => {
-    const cid = comment.id
-    setCurrentId(cid)
+
+  const resetCommentsList = () => queryClient.invalidateQueries(['commentsList'])
+
+  // 切换审核状态
+  const onChangeStatus = (status, id) => {
+    setCurrentId(id)
     setSwitchLoading(true)
 
-    const newStatus = comment.status ? 1 : 2
     updateComments({
-      id: cid,
+      id,
       // 1-审核通过，2-审核不通过
-      status: newStatus
+      status
     })
       .then(() => {
+        resetCommentsList()
         message.success('更新成功!')
       })
       .finally(() => setSwitchLoading(false))
@@ -52,11 +53,7 @@ export default function Index(props) {
         deleteComments({ id })
           .then(res => {
             message.success(res?.msg || '删除成功')
-            // 重新获取
-            setParams({
-              ...params,
-              page: 1
-            })
+            resetCommentsList()
           })
           .finally(() => setDeleteLoading(false))
       },
@@ -78,10 +75,11 @@ export default function Index(props) {
           defaultValue={record.status}
           style={{ width: 120 }}
           loading={currentId === record.id && switchLoading}
-          onChange={() => onChangeStatus(record)}
+          onChange={value => onChangeStatus(value, record.id)}
           options={[
             {
               value: 0,
+              disabled: true,
               label: '待审核'
             },
             {

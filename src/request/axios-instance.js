@@ -34,11 +34,13 @@ request.interceptors.response.use(
   },
   error => {
     message.error(error.response?.data?.msg || 'error')
-
+    // 权限不足，移除token，退出登录
     if ([401, 403].includes(error.response.status)) {
-      removeToken().then(() => {
-        window.location.href = '/'
-      })
+      setTimeout(() => {
+        removeToken().then(() => {
+          window.location.href = '/'
+        })
+      }, 1000)
     }
 
     return Promise.reject(error.response.data)

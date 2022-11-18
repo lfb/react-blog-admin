@@ -1,4 +1,5 @@
 import React from 'react'
+import {Tag} from "antd";
 
 export const userColumns = [
   {
@@ -15,15 +16,15 @@ export const userColumns = [
     title: '邮箱',
     dataIndex: 'email',
     key: 'email'
+  },
+  {
+    title: '用户状态',
+    dataIndex: 'status',
+    key: 'status',
+    render: status => (
+      <Tag color={status === 1 ? 'green' : 'magenta'} key={status}>
+        {status === 1 ? '正常' : '禁用'}
+      </Tag>
+    )
   }
-  // {
-  //   title: '状态',
-  //   dataIndex: 'status',
-  //   key: 'status',
-  //   render: status => (
-  //     <Tag color={status === 1 ? 'green' : 'magenta'} key={status}>
-  //       {status === 1 ? '正常' : '隐藏'}
-  //     </Tag>
-  //   )
-  // }
 ]
