@@ -1,9 +1,9 @@
-import React, { useState } from "react";
-import { Button, message, Modal, Select, Space, Switch, Table } from "antd";
+import React, { useState } from 'react'
+import { Button, message, Modal, Select, Space, Switch, Table } from 'antd'
 
 import { replyColumns } from './Columns'
-import { deleteComments, updateComments } from "../../../../request/api/comments";
-import { deleteReply, updateReply } from "../../../../request/api/reply";
+import { deleteComments, updateComments } from '../../../../request/api/comments'
+import { deleteReply, updateReply } from '../../../../request/api/reply'
 
 export default function Index(props) {
   const { params, isLoading, replyList, pagination, setParams } = props
@@ -21,7 +21,7 @@ export default function Index(props) {
   const [currentId, setCurrentId] = useState(false)
   const [selectLoading, setSelectLoading] = useState(false)
 
-  const onChangeStatus = (reply) => {
+  const onChangeStatus = reply => {
     const cid = reply.id
     setCurrentId(cid)
     setSelectLoading(true)
@@ -34,10 +34,11 @@ export default function Index(props) {
     })
       .then(() => {
         message.success('更新成功!')
-      }).finally(() => setSelectLoading(false))
+      })
+      .finally(() => setSelectLoading(false))
   }
 
-  const onDelete = (id) => {
+  const onDelete = id => {
     Modal.confirm({
       content: '确定删除该回复吗？',
       okText: '确定',
@@ -78,19 +79,21 @@ export default function Index(props) {
           options={[
             {
               value: 0,
-              label: '待审核',
+              label: '待审核'
             },
             {
               value: 1,
-              label: '审核通过',
+              label: '审核通过'
             },
             {
               value: 2,
-              label: '审核不通过',
+              label: '审核不通过'
             }
           ]}
         />
-        <Button type="danger" loading={currentDelId === record.id && deleteLoading} onClick={() => onDelete(record.id)}>删除</Button>
+        <Button type="danger" loading={currentDelId === record.id && deleteLoading} onClick={() => onDelete(record.id)}>
+          删除
+        </Button>
       </Space>
     )
   }

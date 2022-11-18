@@ -1,11 +1,11 @@
-import React, { useState } from "react";
-import { Button, message, Space, Select, Table, Modal } from "antd";
+import React, { useState } from 'react'
+import { Button, message, Space, Select, Table, Modal } from 'antd'
 
-import { useQueryClient } from "react-query";
+import { useQueryClient } from 'react-query'
 import { commentsColumns } from './Columns'
-import { deleteComments, updateComments } from "../../../../request/api/comments";
-import {commonsStatusText } from "../../../../utils/form-search";
-import { deleteCategory } from "../../../../request/api/category";
+import { deleteComments, updateComments } from '../../../../request/api/comments'
+import { commonsStatusText } from '../../../../utils/form-search'
+import { deleteCategory } from '../../../../request/api/category'
 
 export default function Index(props) {
   const queryClient = useQueryClient()
@@ -22,10 +22,9 @@ export default function Index(props) {
   const [currentDelId, setCurrentDelId] = useState('')
   const [deleteLoading, setDeleteLoading] = useState(false)
 
-
   const [currentId, setCurrentId] = useState(false)
   const [switchLoading, setSwitchLoading] = useState(false)
-  const onChangeStatus = (comment) => {
+  const onChangeStatus = comment => {
     const cid = comment.id
     setCurrentId(cid)
     setSwitchLoading(true)
@@ -38,10 +37,11 @@ export default function Index(props) {
     })
       .then(() => {
         message.success('更新成功!')
-      }).finally(() => setSwitchLoading(false))
+      })
+      .finally(() => setSwitchLoading(false))
   }
 
-  const onDelete = (id) => {
+  const onDelete = id => {
     Modal.confirm({
       content: '确定删除该评论吗？',
       okText: '确定',
@@ -66,7 +66,6 @@ export default function Index(props) {
     })
   }
 
-
   // 绑定方法，所以抽出来
   const columnsActions = {
     title: '操作',
@@ -83,15 +82,15 @@ export default function Index(props) {
           options={[
             {
               value: 0,
-              label: '待审核',
+              label: '待审核'
             },
             {
               value: 1,
-              label: '审核通过',
+              label: '审核通过'
             },
             {
               value: 2,
-              label: '审核不通过',
+              label: '审核不通过'
             }
           ]}
         />

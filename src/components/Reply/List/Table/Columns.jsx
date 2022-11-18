@@ -1,6 +1,6 @@
 import React from 'react'
 import { Tag } from 'antd'
-import { commonsStatusText } from "../../../../utils/form-search";
+import { commonsStatusText } from '../../../../utils/form-search'
 
 export const replyColumns = [
   {

@@ -11,15 +11,17 @@ export const useCommentsList = params =>
   )
 
 // 更新评论
-export const updateComments = ({id, ...data}) => postRequest({
-  url: `/v1/comment/${id}`,
-  method: 'PUT',
-  data
-})
+export const updateComments = ({ id, ...data }) =>
+  postRequest({
+    url: `/v1/comment/${id}`,
+    method: 'PUT',
+    data
+  })
 
 // 删除评论
-export const deleteComments = ({id, ...data}) => postRequest({
-  url: `/v1/comment/${id}`,
-  method: 'DELETE',
-  data
-})
+export const deleteComments = ({ id, ...data }) =>
+  postRequest({
+    url: `/v1/comment/${id}`,
+    method: 'DELETE',
+    data
+  })

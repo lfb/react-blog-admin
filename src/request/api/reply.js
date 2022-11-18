@@ -10,17 +10,18 @@ export const useReplyList = params =>
     })
   )
 
-
 // 更新回复
-export const updateReply = ({id, ...data}) => postRequest({
-  url: `/v1/reply/${id}`,
-  method: 'PUT',
-  data
-})
+export const updateReply = ({ id, ...data }) =>
+  postRequest({
+    url: `/v1/reply/${id}`,
+    method: 'PUT',
+    data
+  })
 
 // 删除回复
-export const deleteReply = ({id, ...data}) => postRequest({
-  url: `/v1/reply/${id}`,
-  method: 'DELETE',
-  data
-})
+export const deleteReply = ({ id, ...data }) =>
+  postRequest({
+    url: `/v1/reply/${id}`,
+    method: 'DELETE',
+    data
+  })
