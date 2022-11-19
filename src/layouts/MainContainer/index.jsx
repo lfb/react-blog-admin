@@ -4,9 +4,12 @@ import { Layout } from 'antd'
 import QueueAnim from 'rc-queue-anim'
 import HomeContainer from '../../components/Home/Container'
 import ArticlesList from '../../components/Articles/List'
+import ArticlesCreate from '../../components/Articles/Create'
+
 import CategoryList from '../../components/Category/List'
 import CategoryCreate from '../../components/Category/Create'
 import CategoryUpdate from '../../components/Category/Update'
+
 import CommentsList from '../../components/Comments/List'
 import ReplyList from '../../components/Reply/List'
 import UserList from '../../components/User/List'
@@ -27,7 +30,8 @@ export default function MainContainer() {
         <Routes>
           <Route key="Navigate" path="/" element={<Navigate to="/home" replace />} />
           <Route key="HomeContainer" path="/home" element={<HomeContainer />} />
-          <Route key="ArticlesList" path="/articles/list" element={<ArticlesList />} />
+          <Route key="ArticlesList" path="/article/list" element={<ArticlesList />} />
+          <Route key="ArticlesCreate" path="/article/create" element={<ArticlesCreate />} />
           <Route key="UserList" path="/user/list" element={<UserList />} />
           <Route key="CategoryList" path="/category/list" element={<CategoryList />} />
           <Route key="CategoryCreate" path="/category/create" element={<CategoryCreate />} />

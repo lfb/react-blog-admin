@@ -1,16 +1,18 @@
 import React, { useState } from 'react'
 
 import { Form, Select } from 'antd'
-import { articleFormItemMap as formItemMap } from '../../utils/form-search'
+import { useNavigate } from 'react-router'
+import { articleFormItemMap as formItemMap } from '../../../utils/form-search'
 
-import { useDocumentTitle } from '../../hooks/useDocumentTitle'
-import { useArticlesList } from '../../request/api/articles'
-import FormSearch from '../Common/FormSearch/FormSearch'
-import ArticleTable from './ArticleTable'
-import { useCategory } from '../../request/api/category'
+import { useDocumentTitle } from '../../../hooks/useDocumentTitle'
+import { useArticlesList } from '../../../request/api/articles'
+import FormSearch from '../../Common/FormSearch/FormSearch'
+import ArticleTable from './Table'
+import { useCategory } from '../../../request/api/category'
 
 export default function ArticlesList() {
   useDocumentTitle('文章列表')
+  const navigate = useNavigate()
 
   // 请求文章数据
   const [params, setParams] = useState({})
@@ -25,9 +27,11 @@ export default function ArticlesList() {
     })
   }
 
+  const onAdd = () => navigate('/article/create')
+
   return (
     <div>
-      <FormSearch formItemMap={formItemMap} params={params} setParams={setParams}>
+      <FormSearch formItemMap={formItemMap} params={params} setParams={setParams} onAdd={onAdd}>
         <Form.Item name="field-article-category" style={{ width: '8rem' }}>
           <Select placeholder="分类" onChange={onCategoryChange} allowClear>
             {categoryList.map(category => (

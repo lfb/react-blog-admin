@@ -28,6 +28,9 @@ module.exports = {
         'import/no-extraneous-dependencies': ["error", { devDependencies: true }],
         'react/jsx-wrap-multilines': 'off',
         "prefer-object-spread": 'off',
-        "no-unused-vars": 0
+        "no-unused-vars": 0,
+        "react/jsx-props-no-spreading": 0,
+        "no-plusplus": 0,
+        "react/no-danger": 0
     }
 };

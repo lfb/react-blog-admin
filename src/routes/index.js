@@ -9,9 +9,14 @@ export const navList = [
     title: '文章管理',
     children: [
       {
-        key: 'articles-list',
+        key: 'article-list',
         sub_title: '文章列表',
-        path: '/articles/list'
+        path: '/article/list'
+      },
+      {
+        key: 'article-create',
+        sub_title: '文章创建',
+        path: '/article/create'
       }
     ]
   },

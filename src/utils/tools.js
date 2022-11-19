@@ -4,7 +4,7 @@
  * @param obj
  * @returns {boolean}
  */
-const isObject = obj => {
+export const isObject = obj => {
   const isObj = Object.prototype.toString.call(obj) === '[object Object]'
   if (isObj) {
     return Object.keys(obj).length > 0
@@ -18,7 +18,7 @@ const isObject = obj => {
  * @param arr
  * @returns {boolean}
  */
-const isArray = arr => {
+export const isArray = arr => {
   const isArr = Object.prototype.toString.call(arr) === '[object Array]'
   if (isArr) {
     return arr.length > 0

@@ -13,6 +13,7 @@
 
 # IDE / Editor
 .idea
+/demo
 
 # misc
 .DS_Store
