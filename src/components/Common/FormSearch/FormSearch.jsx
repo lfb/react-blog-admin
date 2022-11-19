@@ -5,7 +5,7 @@ import { debounce } from 'lodash'
 import './FormSearch.scss'
 
 export default function ArticleFormSearch(props) {
-  const [form] = Form.useForm()
+  const [formRef] = Form.useForm()
 
   const { formItemMap = {}, initParams = {} } = props
 
@@ -31,14 +31,14 @@ export default function ArticleFormSearch(props) {
   // 重置
   const resetForm = () => {
     props.setParams(initParams)
-    form.resetFields()
+    formRef.resetFields()
   }
 
   const onAdd = () => props.onAdd?.()
 
   return (
     <div>
-      <Form className="search-form-wrap" layout="inline" name="basic" form={form}>
+      <Form className="search-form-wrap" layout="inline" name="basic" form={formRef}>
         {formItemMap.status && (
           <Form.Item name="field-article-status" style={{ width: '8rem' }}>
             <Select placeholder="状态" onChange={onStatusChange} allowClear>

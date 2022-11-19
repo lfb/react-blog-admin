@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { markdownRender } from './utils/markdown'
 import { insertEditor } from './utils/textarea'
 import MyUpload from '../MyUpload'
@@ -6,39 +6,38 @@ import MyUpload from '../MyUpload'
 import './index.scss'
 import 'highlight.js/styles/vs2015.css'
 
-const CDN_HOST = `https://cdn.boblog.com/`
-
-export default function createArticle() {
+export default function createArticle(props) {
   const goodEditorRef = useRef(null)
   const [content, setContent] = useState('')
 
   const onUploadSuccess = ({ image } = {}) => {
-    const newText = `\n![image](${image})\n\n`
+    const oldValue = goodEditorRef.current.value
+    const newText = `${oldValue ? '\n' : ''}![image](${image})\n`
 
     insertEditor(goodEditorRef.current, newText)
     setContent(goodEditorRef.current.value)
-  }
-
-  const onUploadError = err => {
-    console.log('err', err)
   }
 
   const onChangeTextarea = e => {
     setContent(e.target.value)
   }
 
+  const onBlur = () => props.onChange?.(content)
+
   return (
     <section className="good-editor">
       <header className="good-editor-header">
-        <MyUpload onUploadSuccess={onUploadSuccess} onUploadError={onUploadError} />
+        <MyUpload onUploadSuccess={onUploadSuccess} />
       </header>
       <section className="good-editor-content">
         <textarea
           ref={goodEditorRef}
           value={content}
           name="textarea"
+          placeholder="请输入内容"
           id="good-good-editor-content-textarea"
           className="good-editor-content-textarea"
+          onBlur={onBlur}
           onChange={value => onChangeTextarea(value)}
         />
         <div className="good-editor-content-preview" dangerouslySetInnerHTML={markdownRender(content)} />
