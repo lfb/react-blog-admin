@@ -12,9 +12,8 @@ export default function createArticle() {
   const goodEditorRef = useRef(null)
   const [content, setContent] = useState('')
 
-  const onUploadSuccess = ({ hash }) => {
-    const imgURL = CDN_HOST + hash
-    const newText = `![image](${imgURL})`
+  const onUploadSuccess = ({ image } = {}) => {
+    const newText = `\n![image](${image})\n\n`
 
     insertEditor(goodEditorRef.current, newText)
     setContent(goodEditorRef.current.value)
@@ -35,12 +34,11 @@ export default function createArticle() {
       </header>
       <section className="good-editor-content">
         <textarea
+          ref={goodEditorRef}
+          value={content}
           name="textarea"
           id="good-good-editor-content-textarea"
           className="good-editor-content-textarea"
-          ref={goodEditorRef}
-          value={content}
-          onInput={value => onChangeTextarea(value)}
           onChange={value => onChangeTextarea(value)}
         />
         <div className="good-editor-content-preview" dangerouslySetInnerHTML={markdownRender(content)} />

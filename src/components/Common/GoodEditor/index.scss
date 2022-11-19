@@ -16,7 +16,7 @@
 
 .good-editor-content {
   display: flex;
-  height: 420px;
+  height: 520px;
   width: 100%;
   padding-bottom: 1px;
   position: relative;
@@ -30,7 +30,6 @@
     height: 100%;
     flex: 1;
     padding: 12px;
-    overflow-y: scroll;
     border: none;
     resize: none;
     outline: none;
@@ -38,7 +37,8 @@
     background: #fff;
     color: #333;
     font-size: 14px;
-    line-height: 1.7;
+    line-height: 1.8;
+    overflow-y: scroll;
     border-right: 1px solid #e9e9e9;
   }
 
@@ -48,6 +48,7 @@
     flex: 1;
     overflow: hidden;
     overflow-x: scroll;
+    overflow-y: scroll;
 
     img {
       width: 100%;

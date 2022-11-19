@@ -6,7 +6,6 @@ export const useArticlesList = (params = {}) =>
   useQuery(['articleList', params], () =>
     postRequest({
       url: '/v1/article',
-      method: 'GET',
       params
     })
   )

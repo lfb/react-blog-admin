@@ -4,8 +4,9 @@ import { PictureOutlined } from '@ant-design/icons'
 import { useUploadToken } from '../../../request/api/upload'
 
 const UPLOAD_ADDRESS = 'https://upload-z2.qiniup.com/'
+const CDN_HOST = `https://cdn.boblog.com/`
 
-export default function MyUpload(props) {
+export default function MyUpload(props = {}) {
   const { data: token = '' } = useUploadToken()
 
   const uploadProps = {
@@ -25,18 +26,24 @@ export default function MyUpload(props) {
       if (info.file.status === 'done') {
         message.destroy('upload')
         message.success(`file upload successful.`)
-        props.onUploadSuccess?.(info.file.response)
+        props.onUploadSuccess?.({
+          image: CDN_HOST + info.file.response.hash,
+          ...info.file.response
+        })
       } else if (info.file.status === 'error') {
         message.destroy('upload')
         message.error(`file upload failed.`)
-        props.onUploadError?.(info.file.response)
+        props.onUploadError?.({
+          ...info.file.response,
+          image: ''
+        })
       }
     }
   }
 
   return (
     <Upload {...uploadProps} data={token}>
-      <PictureOutlined color="#2d8cf0" />
+      {props.children || <PictureOutlined color="#2d8cf0" />}
     </Upload>
   )
 }
