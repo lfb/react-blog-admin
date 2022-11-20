@@ -8,7 +8,7 @@ import 'highlight.js/styles/vs2015.css'
 
 export default function createArticle(props) {
   const goodEditorRef = useRef(null)
-  const [content, setContent] = useState('')
+  const [content, setContent] = useState(props.content || '')
 
   const onUploadSuccess = ({ image } = {}) => {
     const oldValue = goodEditorRef.current.value

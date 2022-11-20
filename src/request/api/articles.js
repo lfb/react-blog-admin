@@ -25,3 +25,19 @@ export const deleteArticle = ({ id, ...data } = {}) =>
     method: 'DELETE',
     data
   })
+
+// 更新文章
+export const updateArticle = ({ id, ...data } = {}) =>
+  postRequest({
+    url: `/v1/article/${id}`,
+    method: 'PUT',
+    data
+  })
+
+// 文章详情
+export const useArticleDetail = id =>
+  useQuery(['articleDetails', id], () =>
+    postRequest({
+      url: `/v1/article/${id}`
+    })
+  )

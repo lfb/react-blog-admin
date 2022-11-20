@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Button, Select, Form, Input, Modal, message } from 'antd'
+import { Button, Select, Form, Input, Modal, message, Radio } from 'antd'
 import { CloudUploadOutlined } from '@ant-design/icons'
 import { useNavigate } from 'react-router'
 
@@ -77,7 +77,14 @@ export default function ArticleCreate() {
 
   return (
     <div>
-      <Form form={formRef} name="basic" onFinish={onFinish} onFinishFailed={onFinishFailed} autoComplete="off">
+      <Form
+        form={formRef}
+        initialValues={{ status: params.status }}
+        name="basic"
+        autoComplete="off"
+        onFinish={onFinish}
+        onFinishFailed={onFinishFailed}
+      >
         <Form.Item
           name="title"
           rules={[
@@ -144,7 +151,7 @@ export default function ArticleCreate() {
         <section style={{ display: 'flex' }}>
           <Form.Item
             name="seo_keyword"
-            style={{ width: '32%', marginRight: '2%' }}
+            style={{ width: '30%', marginRight: '2%' }}
             rules={[
               {
                 required: true,
@@ -167,7 +174,7 @@ export default function ArticleCreate() {
 
           <Form.Item
             name="category"
-            style={{ width: '32%', marginRight: '2%' }}
+            style={{ width: '22%', marginRight: '2%' }}
             rules={[
               {
                 required: true,
@@ -196,7 +203,7 @@ export default function ArticleCreate() {
 
           <Form.Item
             name="sort_order"
-            style={{ width: '32%' }}
+            style={{ width: '22%', marginRight: '2%' }}
             rules={[
               {
                 required: true,
@@ -207,6 +214,7 @@ export default function ArticleCreate() {
             <Select
               allowClear
               placeholder="文章排序"
+              value={params.sort_order}
               onChange={num =>
                 setParams({
                   ...params,
@@ -220,6 +228,21 @@ export default function ArticleCreate() {
                 </Select.Option>
               ))}
             </Select>
+          </Form.Item>
+
+          <Form.Item name="status" label="状态：" style={{ width: '22%' }}>
+            <Radio.Group
+              value={params.status}
+              onChange={e => {
+                setParams({
+                  ...params,
+                  status: e.target.value
+                })
+              }}
+            >
+              <Radio value={1}>正常</Radio>
+              <Radio value={0}>隐藏</Radio>
+            </Radio.Group>
           </Form.Item>
         </section>
 

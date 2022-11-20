@@ -2,6 +2,7 @@ import { Button, message, Modal, Space, Table } from 'antd'
 import React, { useState } from 'react'
 
 import { useQueryClient } from 'react-query'
+import { useNavigate } from 'react-router'
 import { deleteArticle } from '../../../../request/api/articles'
 
 import { articleColumns } from './Columns'
@@ -10,6 +11,7 @@ export default function ArticlesList(props) {
   const { isLoading, article, pagination, setParams, params } = props
 
   const queryClient = useQueryClient()
+  const navigate = useNavigate()
   // Table 页码切换
   const onTableChange = ({ current: page }) => {
     setParams({
@@ -19,9 +21,7 @@ export default function ArticlesList(props) {
   }
 
   // 编辑
-  const onEdit = () => {
-    console.log('onEdit')
-  }
+  const onEdit = id => navigate(`/article/update/${id}`)
   // 编辑
   const previewArticle = id => {
     window.open(`https://www.boblog.com/article?id=${id}`)

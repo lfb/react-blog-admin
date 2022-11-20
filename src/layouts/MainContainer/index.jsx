@@ -5,6 +5,7 @@ import QueueAnim from 'rc-queue-anim'
 import HomeContainer from '../../components/Home/Container'
 import ArticlesList from '../../components/Articles/List'
 import ArticlesCreate from '../../components/Articles/Create'
+import ArticlesUpdate from '../../components/Articles/Update'
 
 import CategoryList from '../../components/Category/List'
 import CategoryCreate from '../../components/Category/Create'
@@ -32,6 +33,7 @@ export default function MainContainer() {
           <Route key="HomeContainer" path="/home" element={<HomeContainer />} />
           <Route key="ArticlesList" path="/article/list" element={<ArticlesList />} />
           <Route key="ArticlesCreate" path="/article/create" element={<ArticlesCreate />} />
+          <Route key="ArticlesUpdate" path="/article/update/:id" element={<ArticlesUpdate />} />
           <Route key="UserList" path="/user/list" element={<UserList />} />
           <Route key="CategoryList" path="/category/list" element={<CategoryList />} />
           <Route key="CategoryCreate" path="/category/create" element={<CategoryCreate />} />
