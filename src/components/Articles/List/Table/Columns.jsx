@@ -31,16 +31,6 @@ export const articleColumns = [
     render: author => <div>{author && author.nickname}</div>
   },
   {
-    title: '状态',
-    dataIndex: 'status',
-    key: 'status',
-    render: status => (
-      <Tag color={status === 1 ? 'green' : 'magenta'} key={status}>
-        {status === 1 ? '正常' : '隐藏'}
-      </Tag>
-    )
-  },
-  {
     title: '排序',
     dataIndex: 'sort_order',
     key: 'sort_order'
@@ -49,5 +39,15 @@ export const articleColumns = [
     title: '浏览次数',
     dataIndex: 'browse',
     key: 'browse'
+  },
+  {
+    title: '状态',
+    dataIndex: 'status',
+    key: 'status',
+    render: status => (
+      <Tag color={status === 1 ? 'green' : 'magenta'} key={status}>
+        {status === 1 ? '正常' : '隐藏'}
+      </Tag>
+    )
   }
 ]

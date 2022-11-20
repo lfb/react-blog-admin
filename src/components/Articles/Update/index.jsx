@@ -254,7 +254,7 @@ export default function ArticleUpdate() {
                   ))}
                 </Select>
               </Form.Item>
-              <Form.Item name="status" style={{ width: '22%' }}>
+              <Form.Item name="status" label="状态" style={{ width: '22%' }}>
                 <Radio.Group
                   value={params.status}
                   onChange={e => {
