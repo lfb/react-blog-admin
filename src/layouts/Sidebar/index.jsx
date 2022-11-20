@@ -17,7 +17,7 @@ export default function Sidebar(props) {
   const location = useLocation()
 
   // 展开的导航目录
-  const initKeys = location.pathname.split('/')[1] || 'articles'
+  const initKeys = location.pathname.split('/')[1] || ''
   const [openKeys, setOpenKeys] = useState([initKeys])
 
   // 获取当前导航路径

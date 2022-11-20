@@ -1,29 +1,38 @@
 import React, { useState } from 'react'
 import { Button, Select, Form, Input, Modal, message } from 'antd'
 import { CloudUploadOutlined } from '@ant-design/icons'
+import { useNavigate } from 'react-router'
 
 import GoodEditor from '../../Common/GoodEditor'
 import './ArticleCreate.scss'
 import MyUpload from '../../Common/MyUpload'
 import { useCategory } from '../../../request/api/category'
+import { createArticle } from '../../../request/api/articles'
+import { useAdminInfo } from '../../../hooks/useAdmin'
 
-export default function createArticle() {
+const sortArray = new Array(100).fill(1).map((v, i) => v + i)
+
+export default function ArticleCreate() {
   const [formRef] = Form.useForm()
-
+  const navigate = useNavigate()
+  const { admin } = useAdminInfo()
   const { data: { data: categoryList = [] } = {}, isLoading: isCategoryLoading } = useCategory()
-  const [params, setParams] = useState({
-    title: '',
-    description: '',
-    keyword: '',
-    img_url: ''
-  })
 
-  const onFinish = values => {
-    console.log('Success:', values, params)
+  const initParams = {
+    category_id: 0,
+    content: '',
+    description: '',
+    img_url: '',
+    seo_keyword: '',
+    sort_order: 1,
+    status: 1,
+    title: '',
+    admin_id: admin?.id
   }
-  const onFinishFailed = errorInfo => {
-    console.log('Failed:', errorInfo, params)
-  }
+
+  const [isLoading, setIsLoading] = useState(false)
+  const [params, setParams] = useState(initParams)
+
   const onUploadSuccess = ({ image } = {}) => {
     setParams({
       ...params,
@@ -31,7 +40,25 @@ export default function createArticle() {
     })
   }
 
-  const sortArray = new Array(100).fill(1).map((v, i) => v + i)
+  const submit = () => {
+    setIsLoading(true)
+    createArticle(params)
+      .then(res => {
+        message.success('创建成功')
+        setTimeout(() => {
+          navigate('/article/list')
+        }, 200)
+      })
+      .finally(() => setIsLoading(false))
+  }
+
+  const onFinish = values => {
+    console.log('Success:', values, params)
+    submit()
+  }
+  const onFinishFailed = errorInfo => {
+    console.log('Failed:', errorInfo, params)
+  }
 
   const resetForm = () => {
     Modal.confirm({
@@ -39,7 +66,8 @@ export default function createArticle() {
       okText: '确定',
       cancelText: '取消',
       onOk() {
-        formRef?.resetFields()
+        formRef.resetFields()
+        setParams(initParams)
       },
       onCancel() {
         message.info('取消')
@@ -49,16 +77,7 @@ export default function createArticle() {
 
   return (
     <div>
-      <Form
-        form={formRef}
-        name="basic"
-        initialValues={{
-          remember: true
-        }}
-        onFinish={onFinish}
-        onFinishFailed={onFinishFailed}
-        autoComplete="off"
-      >
+      <Form form={formRef} name="basic" onFinish={onFinish} onFinishFailed={onFinishFailed} autoComplete="off">
         <Form.Item
           name="title"
           rules={[
@@ -79,75 +98,6 @@ export default function createArticle() {
             allowClear
             placeholder="文章标题"
           />
-        </Form.Item>
-
-        <Form.Item
-          name="content"
-          rules={[
-            {
-              required: true,
-              message: '请输入文章内容!'
-            }
-          ]}
-        >
-          <GoodEditor
-            onChange={content =>
-              setParams({
-                ...params,
-                content
-              })
-            }
-          />
-        </Form.Item>
-
-        <Form.Item>
-          <Input
-            value={params.keyword}
-            onChange={e => {
-              setParams({
-                ...params,
-                keyword: e.target.value
-              })
-            }}
-            style={{ width: '32%', marginRight: '2%' }}
-            allowClear
-            placeholder="文章关键字"
-          />
-          <Select
-            allowClear
-            loading={isCategoryLoading}
-            placeholder="文章分类"
-            style={{ width: '32%', marginRight: '2%' }}
-            onChange={cid =>
-              setParams({
-                ...params,
-                category_id: cid
-              })
-            }
-          >
-            {categoryList.map(category => (
-              <Select.Option key={category.id} value={category.id}>
-                {category.name}
-              </Select.Option>
-            ))}
-          </Select>
-          <Select
-            allowClear
-            placeholder="文章排序"
-            style={{ width: '32%' }}
-            onChange={num =>
-              setParams({
-                ...params,
-                sort_order: num
-              })
-            }
-          >
-            {sortArray.map(opt => (
-              <Select.Option key={opt} value={opt}>
-                {opt}
-              </Select.Option>
-            ))}
-          </Select>
         </Form.Item>
 
         <Form.Item
@@ -172,7 +122,115 @@ export default function createArticle() {
           />
         </Form.Item>
 
-        <Form.Item name="img_url">
+        <Form.Item
+          name="content"
+          rules={[
+            {
+              required: true,
+              message: '请输入文字内容!'
+            }
+          ]}
+        >
+          <GoodEditor
+            onChange={content =>
+              setParams({
+                ...params,
+                content
+              })
+            }
+          />
+        </Form.Item>
+
+        <section style={{ display: 'flex' }}>
+          <Form.Item
+            name="seo_keyword"
+            style={{ width: '32%', marginRight: '2%' }}
+            rules={[
+              {
+                required: true,
+                message: '请输入文章关键字!'
+              }
+            ]}
+          >
+            <Input
+              value={params.seo_keyword}
+              onChange={e => {
+                setParams({
+                  ...params,
+                  seo_keyword: e.target.value
+                })
+              }}
+              allowClear
+              placeholder="文章关键字"
+            />
+          </Form.Item>
+
+          <Form.Item
+            name="category"
+            style={{ width: '32%', marginRight: '2%' }}
+            rules={[
+              {
+                required: true,
+                message: '请选择文章分类!'
+              }
+            ]}
+          >
+            <Select
+              allowClear
+              loading={isCategoryLoading}
+              placeholder="文章分类"
+              onChange={cid =>
+                setParams({
+                  ...params,
+                  category_id: cid
+                })
+              }
+            >
+              {categoryList.map(category => (
+                <Select.Option key={category.id} value={category.id}>
+                  {category.name}
+                </Select.Option>
+              ))}
+            </Select>
+          </Form.Item>
+
+          <Form.Item
+            name="sort_order"
+            style={{ width: '32%' }}
+            rules={[
+              {
+                required: true,
+                message: '请选择文章排序!'
+              }
+            ]}
+          >
+            <Select
+              allowClear
+              placeholder="文章排序"
+              onChange={num =>
+                setParams({
+                  ...params,
+                  sort_order: num
+                })
+              }
+            >
+              {sortArray.map(opt => (
+                <Select.Option key={opt} value={opt}>
+                  {opt}
+                </Select.Option>
+              ))}
+            </Select>
+          </Form.Item>
+        </section>
+
+        <Form.Item
+          rules={[
+            {
+              required: true,
+              message: '请上传文章图片!'
+            }
+          ]}
+        >
           <MyUpload onUploadSuccess={onUploadSuccess}>
             <div className="article-upload-box">
               {params.img_url ? <img width="150" src={params.img_url} alt={params.title} /> : <CloudUploadOutlined />}
@@ -186,11 +244,11 @@ export default function createArticle() {
             span: 16
           }}
         >
-          <Button style={{ marginRight: '1rem' }} onClick={resetForm}>
-            Reset
+          <Button loading={isLoading} style={{ marginRight: '1rem' }} onClick={resetForm}>
+            重置
           </Button>
-          <Button type="primary" htmlType="submit">
-            Submit
+          <Button loading={isLoading} type="primary" htmlType="submit">
+            立即发布
           </Button>
         </Form.Item>
       </Form>

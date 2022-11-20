@@ -9,3 +9,19 @@ export const useArticlesList = (params = {}) =>
       params
     })
   )
+
+// 创建文章
+export const createArticle = (data = {}) =>
+  postRequest({
+    url: '/v1/article',
+    method: 'POST',
+    data
+  })
+
+// 删除文章
+export const deleteArticle = ({ id, ...data } = {}) =>
+  postRequest({
+    url: `/v1/article/${id}`,
+    method: 'DELETE',
+    data
+  })

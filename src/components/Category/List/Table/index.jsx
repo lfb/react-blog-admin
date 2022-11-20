@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Button, message, Space, Table, Modal } from 'antd'
-
+import { useQueryClient } from 'react-query'
 import { useNavigate } from 'react-router'
 import { categoryColumns } from './Columns'
 import { deleteCategory } from '../../../../request/api/category'
@@ -9,6 +9,8 @@ export default function Index(props) {
   const navigate = useNavigate()
 
   const { params, isLoading, categoryList, pagination, setParams } = props
+
+  const queryClient = useQueryClient()
   // Table 页码切换
   const onTableChange = ({ current }) => {
     setParams({
@@ -17,10 +19,11 @@ export default function Index(props) {
     })
   }
 
+  const onUpdate = id => navigate(`/category/update/${id}`)
+  const resetCategoryList = () => queryClient.invalidateQueries(['categoryList'])
+
   const [currentDelId, setCurrentDelId] = useState('')
   const [deleteLoading, setDeleteLoading] = useState(false)
-  const onUpdate = id => navigate(`/category/update/${id}`)
-
   const onDelete = async id => {
     Modal.confirm({
       content: '确定删除该分类吗？',
@@ -32,11 +35,7 @@ export default function Index(props) {
         deleteCategory({ id })
           .then(res => {
             message.success(res?.msg || '删除成功')
-            // 重新获取
-            setParams({
-              ...params,
-              page: 1
-            })
+            resetCategoryList()
           })
           .finally(() => setDeleteLoading(false))
       },
