@@ -7,8 +7,8 @@ import { deleteReply, updateReply } from '../../../../request/api/reply'
 
 export default function Index(props) {
   const queryClient = useQueryClient()
-
   const { params, isLoading, replyList, pagination, setParams } = props
+
   // Table 页码切换
   const onTableChange = ({ current }) => {
     setParams({
@@ -17,14 +17,10 @@ export default function Index(props) {
     })
   }
 
-  const [currentDelId, setCurrentDelId] = useState(false)
-  const [deleteLoading, setDeleteLoading] = useState(false)
+  const resetReplyList = () => queryClient.invalidateQueries(['replyList'])
 
   const [currentId, setCurrentId] = useState(false)
   const [selectLoading, setSelectLoading] = useState(false)
-
-  const resetReplyList = () => queryClient.invalidateQueries(['replyList'])
-
   // 切换审核状态
   const onChangeStatus = (status, id) => {
     setCurrentId(id)
@@ -41,6 +37,9 @@ export default function Index(props) {
       .finally(() => setSelectLoading(false))
   }
 
+  // 删除操作
+  const [currentDelId, setCurrentDelId] = useState(false)
+  const [deleteLoading, setDeleteLoading] = useState(false)
   const onDelete = id => {
     Modal.confirm({
       content: '确定删除该回复吗？',

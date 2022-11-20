@@ -12,22 +12,15 @@ export default function ArticlesList(props) {
 
   const queryClient = useQueryClient()
   const navigate = useNavigate()
-  // Table 页码切换
-  const onTableChange = ({ current: page }) => {
-    setParams({
-      ...params,
-      page
-    })
-  }
 
-  // 编辑
+  // 编辑调整文章
   const onEdit = id => navigate(`/article/update/${id}`)
-  // 编辑
-  const previewArticle = id => {
-    window.open(`https://www.boblog.com/article?id=${id}`)
-  }
+  // 预览文章
+  const previewArticle = id => window.open(`https://www.boblog.com/article?id=${id}`)
+  // 重置文章数据
   const resetArticleList = () => queryClient.invalidateQueries(['articleList'])
 
+  // 删除文章的状态与方法
   const [currentDelId, setCurrentDelId] = useState('')
   const [deleteLoading, setDeleteLoading] = useState(false)
   const onDelete = id => {
@@ -50,7 +43,15 @@ export default function ArticlesList(props) {
       }
     })
   }
-  // 绑定方法，所以抽出来
+
+  // 切换 页码
+  const onTableChange = ({ current: page }) =>
+    setParams({
+      ...params,
+      page
+    })
+
+  // 绑定操作
   const columnsActions = {
     title: '操作',
     dataIndex: 'browse',

@@ -7,25 +7,19 @@ import { deleteComments, updateComments } from '../../../../request/api/comments
 
 export default function Index(props) {
   const queryClient = useQueryClient()
-
   const { params, isLoading, commentsList, pagination, setParams } = props
+
   // Table 页码切换
-  const onTableChange = ({ current }) => {
+  const onTableChange = ({ current: page }) =>
     setParams({
       ...params,
-      page: current
+      page
     })
-  }
-
-  const [currentDelId, setCurrentDelId] = useState('')
-  const [deleteLoading, setDeleteLoading] = useState(false)
+  // 重置数据
+  const resetCommentsList = () => queryClient.invalidateQueries(['commentsList'])
 
   const [currentId, setCurrentId] = useState(false)
   const [selectLoading, setSelectLoading] = useState(false)
-
-  const resetCommentsList = () => queryClient.invalidateQueries(['commentsList'])
-
-  // 切换审核状态
   const onChangeStatus = (status, id) => {
     setCurrentId(id)
     setSelectLoading(true)
@@ -42,6 +36,9 @@ export default function Index(props) {
       .finally(() => setSelectLoading(false))
   }
 
+  // 删除操作
+  const [currentDelId, setCurrentDelId] = useState('')
+  const [deleteLoading, setDeleteLoading] = useState(false)
   const onDelete = id => {
     Modal.confirm({
       content: '确定删除该评论吗？',
@@ -63,7 +60,7 @@ export default function Index(props) {
     })
   }
 
-  // 绑定方法，所以抽出来
+  // 表单操作
   const columnsActions = {
     title: '操作',
     dataIndex: 'browse',

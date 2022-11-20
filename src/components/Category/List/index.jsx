@@ -14,7 +14,7 @@ export default function CategoryList() {
 
   // 请求分类数据
   const { data: { data: categoryList = [], meta: pagination = {} } = {}, isLoading } = useCategory(params)
-
+  // 新增分类
   const onAdd = () => navigate('/category/create')
 
   return (

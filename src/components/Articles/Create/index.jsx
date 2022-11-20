@@ -9,15 +9,19 @@ import MyUpload from '../../Common/MyUpload'
 import { useCategory } from '../../../request/api/category'
 import { createArticle } from '../../../request/api/articles'
 import { useAdminInfo } from '../../../hooks/useAdmin'
+import { useDocumentTitle } from '../../../hooks/useDocumentTitle'
 
 const sortArray = new Array(100).fill(1).map((v, i) => v + i)
 
 export default function ArticleCreate() {
+  useDocumentTitle(`创建文章`)
+
   const [formRef] = Form.useForm()
   const navigate = useNavigate()
   const { admin } = useAdminInfo()
   const { data: { data: categoryList = [] } = {}, isLoading: isCategoryLoading } = useCategory()
 
+  // 初始化参数
   const initParams = {
     category_id: 0,
     content: '',
@@ -33,6 +37,7 @@ export default function ArticleCreate() {
   const [isLoading, setIsLoading] = useState(false)
   const [params, setParams] = useState(initParams)
 
+  // 上传图片成功
   const onUploadSuccess = ({ image } = {}) => {
     setParams({
       ...params,
@@ -40,7 +45,8 @@ export default function ArticleCreate() {
     })
   }
 
-  const submit = () => {
+  // 提交创建文章
+  const onSubmit = () => {
     setIsLoading(true)
     createArticle(params)
       .then(res => {
@@ -52,14 +58,7 @@ export default function ArticleCreate() {
       .finally(() => setIsLoading(false))
   }
 
-  const onFinish = values => {
-    console.log('Success:', values, params)
-    submit()
-  }
-  const onFinishFailed = errorInfo => {
-    console.log('Failed:', errorInfo, params)
-  }
-
+  // 重置表单
   const resetForm = () => {
     Modal.confirm({
       content: '确定重置表单数据吗？',
@@ -82,8 +81,7 @@ export default function ArticleCreate() {
         initialValues={{ status: params.status }}
         name="basic"
         autoComplete="off"
-        onFinish={onFinish}
-        onFinishFailed={onFinishFailed}
+        onFinish={onSubmit}
       >
         <Form.Item
           name="title"

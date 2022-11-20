@@ -7,21 +7,13 @@ import { deleteCategory } from '../../../../request/api/category'
 
 export default function Index(props) {
   const navigate = useNavigate()
-
-  const { params, isLoading, categoryList, pagination, setParams } = props
-
   const queryClient = useQueryClient()
-  // Table 页码切换
-  const onTableChange = ({ current }) => {
-    setParams({
-      ...params,
-      page: current
-    })
-  }
+  const { params, isLoading, categoryList, pagination, setParams } = props
 
   const onUpdate = id => navigate(`/category/update/${id}`)
   const resetCategoryList = () => queryClient.invalidateQueries(['categoryList'])
 
+  // 删除分类方法
   const [currentDelId, setCurrentDelId] = useState('')
   const [deleteLoading, setDeleteLoading] = useState(false)
   const onDelete = async id => {
@@ -45,7 +37,7 @@ export default function Index(props) {
     })
   }
 
-  // 绑定方法，所以抽出来
+  // 绑定操作
   const columnsActions = {
     title: '操作',
     dataIndex: 'browse',
@@ -63,6 +55,13 @@ export default function Index(props) {
   }
 
   const columns = [...categoryColumns, columnsActions]
+
+  // 页码切换
+  const onTableChange = ({ current }) =>
+    setParams({
+      ...params,
+      page: current
+    })
 
   return (
     <Table

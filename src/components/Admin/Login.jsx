@@ -7,6 +7,7 @@ export default function Login() {
   const [isLoading, setIsLoading] = useState(false)
   const { login } = useAdminInfo()
 
+  // 提交登录
   const handleSubmit = adminInfo => {
     setIsLoading(true)
     login(adminInfo)

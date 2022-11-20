@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { markdownRender } from './utils/markdown'
 import { insertEditor } from './utils/textarea'
 import MyUpload from '../MyUpload'
@@ -10,6 +10,7 @@ export default function createArticle(props) {
   const goodEditorRef = useRef(null)
   const [content, setContent] = useState(props.content || '')
 
+  // 图片上传成功回调方法
   const onUploadSuccess = ({ image } = {}) => {
     const oldValue = goodEditorRef.current.value
     const newText = `${oldValue ? '\n' : ''}![image](${image})\n`
@@ -18,10 +19,9 @@ export default function createArticle(props) {
     setContent(goodEditorRef.current.value)
   }
 
-  const onChangeTextarea = e => {
-    setContent(e.target.value)
-  }
-
+  // 设置内容
+  const onChangeTextarea = e => setContent(e.target.value)
+  // 失焦回调触发传入设置内容方法
   const onBlur = () => props.onChange?.(content)
 
   return (

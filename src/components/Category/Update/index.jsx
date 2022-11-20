@@ -3,14 +3,18 @@ import React, { useState } from 'react'
 
 import { useNavigate, useParams } from 'react-router'
 import { updateCategory, useCategoryDetail } from '../../../request/api/category'
+import { useDocumentTitle } from '../../../hooks/useDocumentTitle'
 
 export default function CategoryCreate() {
   const [form] = Form.useForm()
   const navigate = useNavigate()
   const { id } = useParams() || {}
+  useDocumentTitle(`分类更新 - ${id}`)
+
   const [isLoading, setIsLoading] = useState(false)
   const { data: category = null } = useCategoryDetail(id)
 
+  // 分类更新
   const onSubmit = async values => {
     setIsLoading(true)
     // 创建分类

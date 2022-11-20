@@ -9,6 +9,7 @@ const CDN_HOST = `https://cdn.boblog.com/`
 export default function MyUpload(props = {}) {
   const { data: token = '' } = useUploadToken()
 
+  // 上传props
   const uploadProps = {
     action: UPLOAD_ADDRESS,
     listType: 'picture',

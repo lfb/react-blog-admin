@@ -6,7 +6,6 @@ import './FormSearch.scss'
 
 export default function ArticleFormSearch(props) {
   const [formRef] = Form.useForm()
-
   const { formItemMap = {}, initParams = {} } = props
 
   // 搜索 - 状态
@@ -34,6 +33,7 @@ export default function ArticleFormSearch(props) {
     formRef.resetFields()
   }
 
+  // 触发传入的新增按钮方法
   const onAdd = () => props.onAdd?.()
 
   return (

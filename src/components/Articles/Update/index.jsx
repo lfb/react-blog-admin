@@ -9,17 +9,18 @@ import MyUpload from '../../Common/MyUpload'
 import { useCategory } from '../../../request/api/category'
 import { updateArticle, useArticleDetail } from '../../../request/api/articles'
 import { useAdminInfo } from '../../../hooks/useAdmin'
+import { useDocumentTitle } from '../../../hooks/useDocumentTitle'
 
 const sortArray = new Array(100).fill(1).map((v, i) => v + i)
 
 export default function ArticleUpdate() {
   const { id } = useParams() || {}
+  useDocumentTitle(`文章更新 - ${id}`)
 
   const { data: articleDetail = null } = useArticleDetail(id)
   const [formRef] = Form.useForm()
   const navigate = useNavigate()
   const { admin } = useAdminInfo()
-  const { data: { data: categoryList = [] } = {}, isLoading: isCategoryLoading } = useCategory()
 
   const initParams = {
     category_id: 0,
@@ -32,10 +33,9 @@ export default function ArticleUpdate() {
     title: '',
     admin_id: admin?.id
   }
-
+  // 初始化参数
   const [isLoading, setIsLoading] = useState(false)
   const [params, setParams] = useState(initParams)
-
   useEffect(() => {
     setParams({
       ...params,
@@ -51,14 +51,17 @@ export default function ArticleUpdate() {
     })
   }, [id, articleDetail])
 
-  const onUploadSuccess = ({ image } = {}) => {
+  const { data: { data: categoryList = [] } = {}, isLoading: isCategoryLoading } = useCategory()
+
+  // 上传图片成功回调方法
+  const onUploadSuccess = ({ image } = {}) =>
     setParams({
       ...params,
       img_url: image
     })
-  }
 
-  const submit = () => {
+  // 提交更新
+  const onSubmit = () => {
     setIsLoading(true)
     updateArticle({
       id,
@@ -71,14 +74,6 @@ export default function ArticleUpdate() {
         }, 200)
       })
       .finally(() => setIsLoading(false))
-  }
-
-  const onFinish = values => {
-    console.log('Success:', values, params)
-    submit()
-  }
-  const onFinishFailed = errorInfo => {
-    console.log('Failed:', errorInfo, params)
   }
 
   const resetForm = () => {
@@ -100,14 +95,7 @@ export default function ArticleUpdate() {
     <div>
       {params.content ? (
         <div>
-          <Form
-            form={formRef}
-            initialValues={params}
-            name="basic"
-            onFinish={onFinish}
-            onFinishFailed={onFinishFailed}
-            autoComplete="off"
-          >
+          <Form name="basic" form={formRef} initialValues={params} onFinish={onSubmit} autoComplete="off">
             <Form.Item
               name="title"
               rules={[
