@@ -5,7 +5,7 @@ export const navList = [
     children: []
   },
   {
-    key: 'articles',
+    key: 'article',
     title: '文章管理',
     children: [
       {

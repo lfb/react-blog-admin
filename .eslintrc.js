@@ -32,5 +32,7 @@ module.exports = {
         "react/jsx-props-no-spreading": 0,
         "no-plusplus": 0,
         "react/no-danger": 0,
+        "import/first": 0,
+        "arrow-body-style": 0
     }
 };

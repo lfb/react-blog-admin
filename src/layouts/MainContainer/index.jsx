@@ -1,19 +1,17 @@
-import React from 'react'
+import React, { Suspense, lazy } from 'react'
 import { Navigate, Route, Routes } from 'react-router'
-import { Layout } from 'antd'
-import QueueAnim from 'rc-queue-anim'
-import HomeContainer from '../../components/Home/Container'
-import ArticlesList from '../../components/Articles/List'
-import ArticlesCreate from '../../components/Articles/Create'
-import ArticlesUpdate from '../../components/Articles/Update'
+import { Layout, Spin } from 'antd'
 
-import CategoryList from '../../components/Category/List'
-import CategoryCreate from '../../components/Category/Create'
-import CategoryUpdate from '../../components/Category/Update'
-
-import CommentsList from '../../components/Comments/List'
-import ReplyList from '../../components/Reply/List'
-import UserList from '../../components/User/List'
+const HomeContainer = lazy(() => import(/* webpackChunkName: "HomeContainer" */ '../../components/Home/Container'))
+const ArticlesList = lazy(() => import(/* webpackChunkName: "ArticlesList" */ '../../components/Articles/List'))
+const ArticlesCreate = lazy(() => import(/* webpackChunkName: "ArticlesCreate" */ '../../components/Articles/Create'))
+const ArticlesUpdate = lazy(() => import(/* webpackChunkName: "ArticlesUpdate" */ '../../components/Articles/Update'))
+const CategoryList = lazy(() => import(/* webpackChunkName: "CategoryList" */ '../../components/Category/List'))
+const CategoryCreate = lazy(() => import(/* webpackChunkName: "CategoryCreate" */ '../../components/Category/Create'))
+const CategoryUpdate = lazy(() => import(/* webpackChunkName: "CategoryUpdate" */ '../../components/Category/Update'))
+const CommentsList = lazy(() => import(/* webpackChunkName: "CommentsList" */ '../../components/Comments/List'))
+const ReplyList = lazy(() => import(/* webpackChunkName: "ReplyList" */ '../../components/Reply/List'))
+const UserList = lazy(() => import(/* webpackChunkName: "UserList" */ '../../components/User/List'))
 
 const { Content } = Layout
 
@@ -27,7 +25,7 @@ export default function MainContainer() {
         minHeight: 280
       }}
     >
-      <QueueAnim type="left">
+      <Suspense fallback={<Spin />}>
         <Routes>
           <Route key="Navigate" path="/" element={<Navigate to="/home" replace />} />
           <Route key="HomeContainer" path="/home" element={<HomeContainer />} />
@@ -41,7 +39,7 @@ export default function MainContainer() {
           <Route key="CommentsList" path="/comments/list" element={<CommentsList />} />
           <Route key="ReplyList" path="/reply/list" element={<ReplyList />} />
         </Routes>
-      </QueueAnim>
+      </Suspense>
     </Content>
   )
 }
