@@ -45,7 +45,7 @@ export default function Sidebar(props) {
   // 导航 map
   const navIconsMap = {
     home: <HomeOutlined />,
-    articles: <FileDoneOutlined />,
+    article: <FileDoneOutlined />,
     category: <BranchesOutlined />,
     user: <UserAddOutlined />,
     comments: <CommentOutlined />,
